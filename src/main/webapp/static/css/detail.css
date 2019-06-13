@@ -1,0 +1,87 @@
+@charset "UTF-8";
+
+body{
+  background-color: #e6e6e6;
+
+}
+.title_box{
+	margin-top:30px;
+	height:35px;
+	background-color: #dff0d8;
+}
+
+.title_box_font{
+	line-height: 35px;
+}
+
+.tiezi{
+	margin-top:10px;
+	height:40px;
+	line-height: 40px;
+	border-bottom:1px solid #d0d0d0;
+}
+
+.tiezi div a:hover{
+	color:#ff0000;
+	
+}
+
+.footer{
+	margin-top:300px;
+	height:40px;
+}
+.footer p{
+	line-height:40px;
+	text-align: center;
+}
+
+.bolg_detail{
+	margin-top:30px;
+	border:1px solid #ccc;
+	border-radius: 5px;
+}
+
+.left_top{
+	margin-top:20px;
+	margin-left:10px;
+	border:1px solid #ccc;
+}
+.left_top p{
+	font-size:0.7em;
+	color:#c0c0c0;
+	line-height: 30px;
+}
+.left_top p span{
+	color:#f04e00;
+}
+.left_top .username{
+	border-top:1px dashed #ccc;
+}
+
+.left_top .username p{
+	font-size:1.1em;
+	line-height: 30px;
+	color:#3c3c3c;
+}
+
+.left_top .img img{
+	display:block;
+	width:150px;
+	height:150px;
+	margin:20px auto;
+}
+
+.content_title{
+	border-bottom:1px dashed #ccc;
+	margin:10px  0px;
+}
+.comments{
+	margin-top:10px;
+	border-bottom:1px dashed #ccc;
+}
+.comments img{
+	display:block;
+	width:64px;
+	height:64px;
+	margin:auto;
+}
