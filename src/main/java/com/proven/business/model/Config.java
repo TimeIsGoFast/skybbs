@@ -8,7 +8,10 @@ import javax.persistence.*;
 public class Config implements Serializable {
     @Id
     private Integer id;
-
+    
+    @Column(name = "group_id")
+    private Integer groupId;
+    
     @Column(name = "type_id")
     private Integer typeId;
 
@@ -35,7 +38,21 @@ public class Config implements Serializable {
         return id;
     }
 
-    /**
+    
+    
+    public Integer getGroupId() {
+		return groupId;
+	}
+
+
+
+	public void setGroupId(Integer groupId) {
+		this.groupId = groupId;
+	}
+
+
+
+	/**
      * @param id
      */
     public void setId(Integer id) {

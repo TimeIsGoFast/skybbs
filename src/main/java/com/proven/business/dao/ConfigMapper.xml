@@ -6,6 +6,7 @@
       WARNING - @mbggenerated
     -->
     <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="group_id" property="groupId" jdbcType="INTEGER" />
     <result column="type_id" property="typeId" jdbcType="INTEGER" />
     <result column="item_key" property="itemKey" jdbcType="VARCHAR" />
     <result column="item_value" property="itemValue" jdbcType="VARCHAR" />
@@ -17,6 +18,10 @@
     <!--
       WARNING - @mbggenerated
     -->
-    id, type_id, item_key, item_value, desc, create_by, create_date
+    id,group_id, type_id, item_key, item_value, desc, create_by, create_date
   </sql>
+  
+  <select id="getConfigListByTypeId" resultMap="BaseResultMap" >
+ 	 select * from t_t_config where group_id=#{groupId} order by id asc
+  </select>
 </mapper>

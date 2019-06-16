@@ -15,6 +15,7 @@
     <result column="create_name" property="createName" jdbcType="VARCHAR" />
     <result column="watch_number" property="watchNumber" jdbcType="INTEGER" />
     <result column="repeat_num" property="repeatNum" jdbcType="INTEGER" />
+    <result column="attach_name" property="attachName" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.proven.business.model.PostDetail" extends="BaseResultMap" >
     <!--
@@ -27,7 +28,7 @@
       WARNING - @mbggenerated
     -->
     id, post_id, attach_url, create_by, create_date, update_by, update_date, create_name, 
-    watch_number, repeat_num
+    watch_number, repeat_num, attach_name
   </sql>
   <sql id="Blob_Column_List" >
     <!--

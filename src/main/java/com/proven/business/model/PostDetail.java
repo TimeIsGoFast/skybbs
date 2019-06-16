@@ -36,6 +36,9 @@ public class PostDetail implements Serializable {
     @Column(name = "repeat_num")
     private Integer repeatNum;
 
+    @Column(name = "attach_name")
+    private String attachName;
+
     private String content;
 
     private static final long serialVersionUID = 1L;
@@ -178,6 +181,20 @@ public class PostDetail implements Serializable {
      */
     public void setRepeatNum(Integer repeatNum) {
         this.repeatNum = repeatNum;
+    }
+
+    /**
+     * @return attach_name
+     */
+    public String getAttachName() {
+        return attachName;
+    }
+
+    /**
+     * @param attachName
+     */
+    public void setAttachName(String attachName) {
+        this.attachName = attachName == null ? null : attachName.trim();
     }
 
     /**

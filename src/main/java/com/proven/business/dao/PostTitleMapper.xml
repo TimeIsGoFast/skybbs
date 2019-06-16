@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.proven.business.dao.PostTitleMapper" >
-  <resultMap id="BaseResultMap" type="com.proven.business.model.PostTitle" >
+  <resultMap  id="BaseResultMap" type="com.proven.business.model.PostTitle" >
     <!--
       WARNING - @mbggenerated
     -->
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="theme_id" property="themeId" jdbcType="INTEGER" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="author" property="author" jdbcType="VARCHAR" />
     <result column="post_time" property="postTime" jdbcType="TIMESTAMP" />
@@ -21,7 +22,25 @@
     <!--
       WARNING - @mbggenerated
     -->
-    id, type_id, title, author, post_time, hot_number, create_by, update_by, update_date, 
+    id, type_id,theme_id, title, author, post_time, hot_number, create_by, update_by, update_date, 
     repeat_number, attach
   </sql>
+  
+  <select id="getPostTitleData" resultMap="BaseResultMap">
+  select * from t_t_post_title where 1=1
+  <if test="typeId != 0">
+  		and type_id=#{typeId}
+  </if>
+   <if test="themeId != 0">
+  		and theme_id=#{themeId}
+  </if>
+  order by update_date desc
+  </select>
+  
+  <insert id="insertReturnId" useGeneratedKeys="true" keyProperty="id" parameterType="com.proven.business.model.PostTitle">
+  insert into t_t_post_title (type_id,theme_id, title, author, post_time, hot_number, create_by, update_by, update_date, 
+    repeat_number, attach) 
+    values (#{typeId},#{themeId},#{title},#{author},#{postTime},#{hotNumber},#{createBy},#{updateBy},#{updateDate},#{repeatNumber},#{attach})
+  
+  </insert>
 </mapper>

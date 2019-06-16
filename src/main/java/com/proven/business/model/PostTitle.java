@@ -11,6 +11,9 @@ public class PostTitle implements Serializable {
 
     @Column(name = "type_id")
     private Integer typeId;
+    
+    @Column(name = "theme_id")
+    private Integer themeId;
 
     private String title;
 
@@ -66,7 +69,16 @@ public class PostTitle implements Serializable {
         this.typeId = typeId;
     }
 
-    /**
+    
+    public Integer getThemeId() {
+		return themeId;
+	}
+
+	public void setThemeId(Integer themeId) {
+		this.themeId = themeId;
+	}
+
+	/**
      * @return title
      */
     public String getTitle() {

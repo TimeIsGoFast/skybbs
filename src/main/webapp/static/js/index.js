@@ -1,66 +1,103 @@
-/**
- * Created by Administrator on 2017/6/6.
- */
-var big_box=$(".images");
-var width=big_box.width();
-var img_box=$(".images .slider");
-var btns=$(".images_btn .btn>li");
-var index=1;
-btns.each(function(n){
-    $(this).click(function(){
-        btns.removeClass("current");
-        $(this).addClass("current");
-        img_box.animate({"left":-width*(n+1)},500);
-        index=n+1;
-    })
+$(function(){
+	//when page load, auto trigger this function
+	init();
+	
+	$(".theme_click").click(function(){
+		alert();
+	});
+	
+	$("#previous_page a").click(function(){
+		var prePage = $("#prePage_num").val();
+		if(prePage==0||prePage==''){
+			return;
+		}
+		$("#page_num").val(prePage);
+		init();
+		
+	});
+	
+	$("#next_page a").click(function(){
+		var nextPage = $("#nextpage_num").val();
+		if(nextPage==0||nextPage==''){
+			return;
+		}
+		$("#page_num").val(nextPage);
+		init();
+	});
+	
+	
+	
 });
-function left(){
-    if(!img_box.is(":animated")){
-        if(index==1){
-            index=5;
-            img_box.animate({"left":0},500,function(){
-                img_box.css({"left":-width*index});
-            });
-        }else{
-            index--;
-            img_box.animate({"left":-width*index},500);
-        }
-        btns.removeClass("current");
-        btns.eq(index-1).addClass("current");
-    }
+//click theme model event
+function selectThemeClick(themeId){
+	$("#theme_id_value").val(themeId);
+	$("#theme_choose a").css("color","#337ab7");
+	$("#theme_id"+themeId).css("color","#ff0000");
+	$("#title_content").empty();
+	init();
 }
-function right(){
-    if(!img_box.is(":animated")){
-        if(index==5){
-            index=1;
-            img_box.animate({"left":-width*6},500,function(){
-                img_box.css({"left":-width*index});
-            });
-        }else{
-            index++;
-            img_box.animate({"left":-width*index},500);
-        }
-        btns.removeClass("current");
-        btns.eq(index-1).addClass("current");
-    }
+
+//click type event
+function selectTypeClick(typeId){
+	$("#type_id_value").val(typeId);
+	$("#type_choose li").removeClass("active");
+	$("#type_id_"+typeId).addClass("active");
+	$("#title_content").empty();
+	init();
 }
-var timer = null;
-//�Զ��ֲ�
-//setInterval(fn,time)
-//��ʾÿ��time�����ʱ��ִ��fn
-//timer��ʾ��ʱ����id
-function auto(){
-    timer = setInterval(right,3000);
+
+function init(){
+	var type_id=$("#type_id_value").val();
+	var theme_id=$("#theme_id_value").val();
+	var page = $("#page_num").val();
+	var row = 20;
+	
+	if(page==""){
+		page = 1;
+	}
+		$.ajax({
+			type:'post',
+			url:path+'/index/getPostTitleData.do',
+			dataType:'json',
+			data:{'typeId':type_id,"themeId":theme_id,"page":page,"row":row},
+			success:function(result){
+				$("#title_content").empty();
+				var datas = result.list;
+				pageSetting(result.prePage,result.nextPage);
+				var content="";
+				$.each(datas, function(i,item){
+					content+='<div class="row tiezi">'+
+			   			'<div class="col-md-8 "><a href="#">'+item.title+'</a></div>'+
+				 	 	'<div class="col-md-1 ">'+item.author+'</div>'+
+				 	 	'<div class="col-md-1 ">'+item.hotNumber+'</div>'+
+				 	 	'<div class="col-md-2 ">'+item.updateDate+'</div>'+
+			   		'</div>'
+				 	 	
+				});
+				
+				$("#title_content").append(content);
+			},
+			error:function(){
+				console.log("ajax function error!")
+			}
+	
+
+    });
+
 }
-auto();
 
-//��꾭��ֹͣ�ֲ�
-big_box.mouseenter(function(){
-
-    //ֹͣ��ʱ��
-    clearInterval(timer);
-}).mouseleave(function(){
-    auto();
-
-})
-
+//page setting
+function pageSetting(prePage,nextPage){
+	if(prePage==0){
+		$("#previous_page").addClass("disabled");
+	}else{
+		$("#previous_page").removeClass("disabled");
+		$("#prePage_num").val(prePage);
+	}
+	if(nextPage==0){
+		$("#next_page").addClass("disabled");
+	}else{
+		$("#next_page").removeClass("disabled");
+		$("#nextpage_num").val(nextPage);
+	}
+}
