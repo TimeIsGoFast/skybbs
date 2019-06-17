@@ -9,10 +9,10 @@
     <result column="theme_name" property="themeName" jdbcType="VARCHAR" />
     <result column="theme_number" property="themeNumber" jdbcType="INTEGER" />
     <result column="post_number" property="postNumber" jdbcType="INTEGER" />
-    <result column="create_date" property="createDate" jdbcType="DATE" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
     <result column="create_by" property="createBy" jdbcType="VARCHAR" />
     <result column="last_update_by" property="lastUpdateBy" jdbcType="VARCHAR" />
-    <result column="last_update_date" property="lastUpdateDate" jdbcType="VARCHAR" />
+    <result column="last_update_date" property="lastUpdateDate" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
     <!--

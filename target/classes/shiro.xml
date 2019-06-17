@@ -43,7 +43,7 @@
 		<property name="filterChainDefinitions">
 			<value>
 				/static/** =anon
-				/blog/** =anon
+				/index/** =anon
 				/renderLogin**=anon
 				/login** = anon
 				/user/register** = anon

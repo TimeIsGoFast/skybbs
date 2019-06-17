@@ -28,7 +28,7 @@ public class Theme implements Serializable {
     private String lastUpdateBy;
 
     @Column(name = "last_update_date")
-    private String lastUpdateDate;
+    private Date lastUpdateDate;
 
     private static final long serialVersionUID = 1L;
 
@@ -133,14 +133,14 @@ public class Theme implements Serializable {
     /**
      * @return last_update_date
      */
-    public String getLastUpdateDate() {
+    public Date getLastUpdateDate() {
         return lastUpdateDate;
     }
 
     /**
      * @param lastUpdateDate
      */
-    public void setLastUpdateDate(String lastUpdateDate) {
-        this.lastUpdateDate = lastUpdateDate == null ? null : lastUpdateDate.trim();
+    public void setLastUpdateDate(Date lastUpdateDate) {
+        this.lastUpdateDate = lastUpdateDate;
     }
 }

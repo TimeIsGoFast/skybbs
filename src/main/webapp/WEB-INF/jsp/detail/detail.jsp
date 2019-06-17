@@ -8,6 +8,8 @@
  <link href="${pageContext.request.contextPath }/static/assets/css/bootstrap.css" rel="stylesheet">
  <link rel="stylesheet" href="${pageContext.request.contextPath }/static/font-awesome-4.7.0/css/font-awesome.min.css">
  <link href="${pageContext.request.contextPath }/static/css/detail.css" rel="stylesheet">
+ <link rel="stylesheet" href="${pageContext.request.contextPath }/static/markdown/examples/css/style.css" />
+ <link rel="stylesheet" href="${pageContext.request.contextPath }/static/markdown/css/editormd.preview.css" />
  <script src="${pageContext.request.contextPath }/static/js/jquery-2.1.1.min.js"></script>
  <script src="${pageContext.request.contextPath }/static/assets/js/bootstrap.min.js"></script>
  <title>详情</title>
@@ -97,38 +99,63 @@
 				 			<h4>发表于 2016-1-18 22:23 </h4>
 				 		</div>
 				 		<div>
-				 			<p>
-				 			gframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping] - Mapping [/blog/detail.do] to HandlerExecutionChain with handler [com.proven.business.controller.BlogController@2795fe72] and 1 interceptor
-  [org.springframework.web.servlet.DispatcherServlet] - Last-Modified value for [/skybbs/blog/detail.do] is: -1
-  [org.springframework.web.bind.annotation.support.HandlerMethodInvoker] - Invoking request handler method: public java.lang.String com.proven.business.controller.BlogController.detail()
-  [org.springframework.web.servlet.DispatcherServlet] - Rendering view [org.springframework.web.servlet.view.JstlView: name 'detail/detail'; URL [/WEB-INF/jsp/detail/detail.jsp]] in DispatcherServlet with name 'dispatcherServlet'
-  [org.springframework.web.servlet.view.JstlView] - Forwarding to resource [/WEB-INF/jsp/detail/detail.jsp] in InternalResourceView 'detail/detail'
-  [org.springframework.web.servlet.DispatcherServlet] - Successfully completed request
-  [org.springframework.web.servlet.DispatcherServlet] - DispatcherServlet with name 'dispatcherServlet' processing GET request for [/skybbs/blog/detail.do]
-  [org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping] - Matching patterns for request [/blog/detail.do] are [/blog/detail.*]
-  [org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping] - URI Template variables for request [/blog/detail.do] are {}
-  [org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping] - Mapping [/blog/detail.do] to HandlerExecutionChain with handler [com.proven.business.controller.BlogController@2795fe72] and 1 interceptor
-  [org.springframework.web.servlet.DispatcherServlet] - Last-Modified value for [/skybbs/blog/detail.do] is: -1
-  [org.springframework.web.bind.annotation.support.HandlerMethodInvoker] - Invoking request handler method: public java.lang.String com.proven.business.controller.BlogController.detail()
-  [org.springframework.web.servlet.DispatcherServlet] - Rendering view [org.springframework.web.servlet.view.JstlView: name 'detail/detail'; URL [/WEB-INF/jsp/detail/detail.jsp]] in DispatcherServlet with name 'dispatcherServlet'
-  [org.springframework.web.servlet.view.JstlView] - Forwarding to resource [/WEB-INF/jsp/detail/detail.jsp] in InternalResourceView 'detail/detail'
-  [org.springframework.web.servlet.DispatcherServlet] - Successfully completed request
-  [org.springframework.web.servlet.DispatcherServlet] - DispatcherServlet with name 'dispatcherServlet' processing GET request for [/skybbs/blog/detail.do]
-  [org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping] - Matching patterns for request [/blog/detail.do] are [/blog/detail.*]
-  [org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping] - URI Template variables for request [/blog/detail.do] are {}
-  [org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping] - Mapping [/blog/detail.do] to HandlerExecutionChain with handler [com.proven.business.controller.BlogController@2795fe72] and 1 interceptor
-  [org.springframework.web.servlet.DispatcherServlet] - Last-Modified value for [/skybbs/blog/detail.do] is: -1
-  [org.springframework.web.bind.annotation.support.HandlerMethodInvoker] - Invoking request handler method: public java.lang.String com.proven.business.controller.BlogController.detail()
-  [org.springframework.web.servlet.DispatcherServlet] - Rendering view [org.springframework.web.servlet.view.JstlView: name 'detail/detail'; URL [/WEB-INF/jsp/detail/detail.jsp]] in DispatcherServlet with name 'dispatcherServlet'
-  [org.springframework.web.servlet.view.JstlView] - Forwarding to resource [/WEB-INF/jsp/detail/detail.jsp] in InternalResourceView 'detail/detail'
-  [org.springframework.web.servlet.DispatcherServlet] - Successfully completed request
-  [org.springframework.web.servlet.DispatcherServlet] - DispatcherServlet with name 'dispatcherServlet' processing GET request for [/skybbs/blog/detail.do]
-  [org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping] - Matching patterns for request [/blog/detail.do] are [/blog/detail.*]
-  [org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping] - URI Template variables for request [/blog/detail.do] are {}
-  [org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping] - Mapping [/blog/detail.do] to HandlerExecutionChain with handler [com.proven.business.controller.BlogController@2795fe72] and 1 interceptor
-  [org.springframework.web.servlet.DispatcherServlet] - Last-Modified value for [/skybbs/blog/detail.do] is: -1
-  [org.springframework.web.bind.annotatio
-				 			</p>
+				 			<div id="layout">
+						            <div id="test-editormd-view2">
+						                <textarea id="append-test" style="display:none;">
+						
+###科学公式 TeX(KaTeX)
+                    
+$$E=mc^2$$
+
+行内的公式$$E=mc^2$$行内的公式，行内的$$E=mc^2$$公式。
+
+$$\(\sqrt{3x-1}+(1+x)^2\)$$
+                    
+$$\sin(\alpha)^{\theta}=\sum_{i=0}^{n}(x^i + \cos(f))$$
+
+$$X^2 > Y$$
+
+#####上标和下标
+
+上标：X&lt;sup&gt;2&lt;/sup&gt;
+
+下标：O&lt;sub&gt;2&lt;/sub&gt;
+
+##### 代码块里包含的过滤标签及属性不会被过滤
+
+```html
+&lt;style type="text/style"&gt;
+body{background:red;}
+&lt;/style&gt;
+
+&lt;script type="text/javscript"&gt;
+alert("script");
+&lt;/script&gt;
+
+&lt;iframe height=498 width=510 src="http://player.youku.com/embed/XMzA0MzIwMDgw" frameborder=0 allowfullscreen&gt;&lt;/iframe&gt;
+```
+
+#####Style
+
+&lt;style&gt;
+body{background:red;}
+&lt;/style&gt;
+
+&lt;style type="text/style"&gt;
+body{background:red;}
+&lt;/style&gt;
+
+#####Script
+
+&lt;script&gt;
+alert("script");
+&lt;/script&gt;
+
+&lt;script type="text/javscript"&gt;
+alert("script");
+&lt;/script&gt;</textarea>         
+						            </div>
+						        </div>
 				 		</div>
 				 	</div>
 				 </div>
@@ -209,9 +236,37 @@
 	 	 
 	  </div>
 	</div>
+ 		<script src="${pageContext.request.contextPath }/static/markdown/examples/js/jquery.min.js"></script>
+        <script src="${pageContext.request.contextPath }/static/markdown/lib/marked.min.js"></script>
+        <script src="${pageContext.request.contextPath }/static/markdown/lib/prettify.min.js"></script>
+        
+        <script src="${pageContext.request.contextPath }/static/markdown/lib/raphael.min.js"></script>
+        <script src="${pageContext.request.contextPath }/static/markdown/lib/underscore.min.js"></script>
+        <script src="${pageContext.request.contextPath }/static/markdown/lib/sequence-diagram.min.js"></script>
+        <script src="${pageContext.request.contextPath }/static/markdown/lib/flowchart.min.js"></script>
+        <script src="${pageContext.request.contextPath }/static/markdown/lib/jquery.flowchart.min.js"></script>
 
+        <script src="${pageContext.request.contextPath }/static/markdown/editormd.js"></script>
+        <script type="text/javascript">
+            $(function() {
+                var testEditormdView, testEditormdView2;
+                
+               
+                    
+                testEditormdView2 = editormd.markdownToHTML("test-editormd-view2", {
+                    htmlDecode      : "style,script,iframe",  // you can filter tags decode
+                    emoji           : true,
+                    taskList        : true,
+                    tex             : true,  // 默认不解析
+                    flowChart       : true,  // 默认不解析
+                    sequenceDiagram : true,  // 默认不解析
+                });
+            });
+        </script>
  <div id="footer" class="footer">
   	 <p>版权所有：XXX公司</p>
  </div>
+ 
+ 
 </body>
 </html>
