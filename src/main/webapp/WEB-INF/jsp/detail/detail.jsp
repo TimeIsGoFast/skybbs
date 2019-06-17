@@ -174,7 +174,7 @@ alert("script");
 						      <h4 class="media-heading">Media heading</h4>
 						     ispatcherServlet] - Rendering view [org.springframework.web.servlet.view.JstlView: name 'detail/detail'; URL [/WEB-INF/jsp/detail/detail.jsp]] in DispatcherServlet with name 'dispatcherServlet'
   [org.springframework.web.servlet.view.JstlView] - Forwarding to resource [/WEB-INF/jsp/detail/detail.jsp] in InternalResourceView 'detail/detail'
-  [org.springframework.web.servlet.DispatcherServlet] - Successfully completed request
+  [org.springframework.web.servlet.DispatcherServlet] - Successfully completed reques
 						    </div>
 						  </li>
 						</ul>
