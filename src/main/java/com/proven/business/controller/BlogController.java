@@ -65,14 +65,7 @@ public class BlogController {
 		return "writeBlog/writeBlog";
 	}
 	
-	@RequestMapping("/detail")
-	public String detail(){
-		return "detail/detail";
-	}
-	@RequestMapping("/chat")
-	public String chat(){
-		return "tuling/tuling";
-	}
+	
 	
 	@RequestMapping("/savePostDetail")
 	public String savePostDetail(Model model,HttpServletRequest request,@RequestParam MultipartFile attachFile,PostParam param){

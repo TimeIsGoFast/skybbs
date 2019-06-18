@@ -36,4 +36,8 @@
     -->
     content
   </sql>
+  
+  <select id="selectByPostId" resultMap="BaseResultMap">
+  select * from t_t_post_detail where post_id=#{postId}
+  </select>
 </mapper>

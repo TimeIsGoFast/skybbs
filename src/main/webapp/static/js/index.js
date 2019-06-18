@@ -67,7 +67,7 @@ function init(){
 				var content="";
 				$.each(datas, function(i,item){
 					content+='<div class="row tiezi">'+
-			   			'<div class="col-md-8 "><a href="#">'+item.title+'</a></div>'+
+			   			'<div class="col-md-8 "><a href="'+path+'/index/detail.do?id='+item.id+'" target="_blank">'+item.title+'</a></div>'+
 				 	 	'<div class="col-md-1 ">'+item.author+'</div>'+
 				 	 	'<div class="col-md-1 ">'+item.hotNumber+'</div>'+
 				 	 	'<div class="col-md-2 ">'+item.updateDate+'</div>'+

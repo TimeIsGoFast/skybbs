@@ -16,4 +16,14 @@ import com.proven.business.model.PostDetail;
 */
 public interface PostDetailService extends BaseService<PostDetail>{
 
+	/**  
+	* @Title: selectByPostId  
+	* @Description: 
+	* @return PostDetail 
+	* @throws
+	* Author:Zeng,weilong
+	* @date 2019年6月18日
+	*/
+	PostDetail selectByPostId(int postId);
+
 }

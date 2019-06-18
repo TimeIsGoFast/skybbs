@@ -37,14 +37,14 @@ body{
 
 .bolg_detail{
 	margin-top:30px;
-	border:1px solid #ccc;
-	border-radius: 5px;
+	
+
 }
 
 .left_top{
-	margin-top:20px;
-	margin-left:10px;
+	margin-top:10px;
 	border:1px solid #ccc;
+	border-radius: 5px;
 }
 .left_top p{
 	font-size:0.7em;
@@ -74,6 +74,7 @@ body{
 .content_title{
 	border-bottom:1px dashed #ccc;
 	margin:10px  0px;
+	
 }
 .comments{
 	margin-top:10px;
@@ -84,4 +85,11 @@ body{
 	width:64px;
 	height:64px;
 	margin:auto;
+}
+
+.content_div{
+	border:1px solid #ccc;
+	margin:10px  0px;
+	border-radius: 5px;
+	width:95%;
 }

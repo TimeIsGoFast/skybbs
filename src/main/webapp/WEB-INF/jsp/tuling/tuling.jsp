@@ -1,26 +1,22 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head lang="en">
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
      <link rel="Shortcut Icon" href="${pageContext.request.contextPath }/static/images/title.jpg" type="image/x-icon">
     <link href="${pageContext.request.contextPath }/static/css/cssReset.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath }/static/css/header.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath }/static/css/talk.css" rel="stylesheet">
- 
    
     <title>聊天机器人</title>
 
 </head>
 <body>
 
-<%@include file="/WEB-INF/jsp/common/list.jsp"%>
 <div class="message">
     <img src="${pageContext.request.contextPath }/static/images/logo1.png">
     <p class="p1">PLASE TALK WITH ME SOMETIMES</p>
-    <p class="p2">SUNSHINE</p>
 </div>
 <div id="container" class="container">
 
