@@ -85,6 +85,10 @@ public class BlogController {
 		
 		postDetailService.save(postDetail);
 		
+		//save theme when add a post
+		Theme theme = themeService.selectByKey(Integer.parseInt(param.getThemeId()));
+		theme.setPostNumber(theme.getPostNumber()+1);
+		themeService.update(theme);
 		List<Config> configList = configService.getConfigListByTypeId(1);
 		List<Theme> themeList = themeService.selectAll();
 		model.addAttribute("postTypes", configList);
