@@ -26,6 +26,7 @@ import com.proven.business.model.Config;
 import com.proven.business.model.PostDetail;
 import com.proven.business.model.PostTitle;
 import com.proven.business.model.Theme;
+import com.proven.business.service.CommentService;
 import com.proven.business.service.ConfigService;
 import com.proven.business.service.PostDetailService;
 import com.proven.business.service.PostTitleService;
@@ -57,6 +58,7 @@ public class BlogController {
 	
 	@Autowired
 	private ConfigService configService;
+	
 	
 	@RequestMapping("/render")
 	public String render(Model model){
