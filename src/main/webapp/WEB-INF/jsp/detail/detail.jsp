@@ -71,76 +71,46 @@ ${postDetail.content}
 				 <div class="row title_box" >
 				 	 	<div class="col-md-8 title_box_font">评论</div>
 		   		 </div>
-				 <div class="row comments">
-				 		<ul class="media-list">
-						  <li class="media">
-						    <div class="media-left">
-						      <a href="#">
-						        <img class="media-object" src="${pageContext.request.contextPath }/static/images/logo2.jpg" alt="...">
-						      </a>
-						    </div>
-						    <div class="media-body">
-						      <h4 class="media-heading">Media heading</h4>
-						     ispatcherServlet] - Rendering view [org.springframework.web.servlet.view.JstlView: name 'detail/detail'; URL [/WEB-INF/jsp/detail/detail.jsp]] in DispatcherServlet with name 'dispatcherServlet'
-  [org.springframework.web.servlet.view.JstlView] - Forwarding to resource [/WEB-INF/jsp/detail/detail.jsp] in InternalResourceView 'detail/detail'
-  [org.springframework.web.servlet.DispatcherServlet] - Successfully completed reques
-						    </div>
-						  </li>
-						</ul>
-				 </div>
-				 		 <div class="row comments">
-				 		<ul class="media-list">
-						  <li class="media">
-						    <div class="media-left">
-						      <a href="#">
-						        <img class="media-object" src="${pageContext.request.contextPath }/static/images/logo2.jpg" alt="...">
-						      </a>
-						    </div>
-						    <div class="media-body">
-						      <h4 class="media-heading">Media heading</h4>
-						     ispatcherServlet] - Rendering view [org.springframework.web.servlet.view.JstlView: name 'detail/detail'; URL [/WEB-INF/jsp/detail/detail.jsp]] in DispatcherServlet with name 'dispatcherServlet'
-  [org.springframework.web.servlet.view.JstlView] - Forwarding to resource [/WEB-INF/jsp/detail/detail.jsp] in InternalResourceView 'detail/detail'
-  [org.springframework.web.servlet.DispatcherServlet] - Successfully completed request
-						    </div>
-						  </li>
-						</ul>
-				 </div>
-				 		 <div class="row comments">
-				 		<ul class="media-list">
-						  <li class="media">
-						    <div class="media-left">
-						      <a href="#">
-						        <img class="media-object" src="${pageContext.request.contextPath }/static/images/logo2.jpg" alt="...">
-						      </a>
-						    </div>
-						    <div class="media-body">
-						      <h4 class="media-heading">Media heading</h4>
-						     ispatcherServlet] - Rendering view [org.springframework.web.servlet.view.JstlView: name 'detail/detail'; URL [/WEB-INF/jsp/detail/detail.jsp]] in DispatcherServlet with name 'dispatcherServlet'
-  [org.springframework.web.servlet.view.JstlView] - Forwarding to resource [/WEB-INF/jsp/detail/detail.jsp] in InternalResourceView 'detail/detail'
-  [org.springframework.web.servlet.DispatcherServlet] - Successfully completed request
-						    </div>
-						  </li>
-						</ul>
-				 </div>
-				 		 <div class="row comments">
-				 		<ul class="media-list">
-						  <li class="media">
-						    <div class="media-left">
-						      <a href="#">
-						        <img class="media-object" src="${pageContext.request.contextPath }/static/images/logo2.jpg" alt="...">
-						      </a>
-						    </div>
-						    <div class="media-body">
-						      <h4 class="media-heading">Media heading</h4>
-						     ispatcherServlet] - Rendering view [org.springframework.web.servlet.view.JstlView: name 'detail/detail'; URL [/WEB-INF/jsp/detail/detail.jsp]] in DispatcherServlet with name 'dispatcherServlet'
-  [org.springframework.web.servlet.view.JstlView] - Forwarding to resource [/WEB-INF/jsp/detail/detail.jsp] in InternalResourceView 'detail/detail'
-  [org.springframework.web.servlet.DispatcherServlet] - Successfully completed request
-						    </div>
-						  </li>
-						</ul>
+		   		 <div class="comment_class">
+			   		 <div class="row">
+			   		   <br/>
+			   		     <textarea class="form-control" rows="3" placeholder="添加评论"></textarea>
+			   		     <br/>
+			   		     <button class="btn btn-danger" style="float:right;" type="submit">   评论    </button>
+			   		 </div>
+			   		 <hr>
+					 <div class="row comments">
+					 		<ul class="media-list">
+							  <li class="media">
+							    <div class="media-left">
+							      <a href="#">
+							        <img class="media-object" src="${pageContext.request.contextPath }/static/images/logo2.jpg" alt="...">
+							      </a>
+							    </div>
+							    <div class="media-body">
+							      <h4 class="media-heading">小曾的明天</h4>
+							      <h5>发表时间：2018-06-13 08:11:00</h5>
+							    		很好的文章。
+							    	
+	                               <div class="row coment_body_P">
+	                                 <div class="col-md-11">
+	                                 	<a href="${pageContext.request.contextPath }/index/downloadFile.do">下载</a>
+		                                <a href="#"><i class="fa fa-reply" aria-hidden="true"></i>回复</a> &nbsp;&nbsp;&nbsp;
+		                               	<a href="#"><i class="fa fa-thumbs-up" aria-hidden="true"></i> 支持</a> &nbsp;&nbsp;&nbsp;
+		                               	<a href="#"><i class="fa fa-thumbs-down" aria-hidden="true">反对</i></a> 
+	                                 </div>
+	                               	 <div class="col-md-1">
+	                               	 #37
+	                               	 </div>	
+	                               	</div>
+							    </div>
+							  </li>
+							</ul>
+					 </div>
 				 </div>
 			  </div>
 	 	 </div>
+	 	 
 	 	 <div class="col-md-1"></div>
 	 	 
 	  </div>

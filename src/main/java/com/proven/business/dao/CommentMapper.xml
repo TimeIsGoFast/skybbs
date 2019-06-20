@@ -33,4 +33,8 @@
     -->
     comment
   </sql>
+  
+  <select id="getComments" resultMap="BaseResultMap">
+  select * from t_t_comment where id=#{commentId} order by create_date desc
+  </select>
 </mapper>

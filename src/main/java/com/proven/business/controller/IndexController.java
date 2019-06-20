@@ -6,8 +6,14 @@
 */ 
 package com.proven.business.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -149,7 +155,7 @@ public class IndexController {
 	
 	/**
 	* @Title: linkOrTread  
-	* @Description: link or tread method 
+	* @Description: add link or tread method 
 	* @return Result 
 	* @throws
 	* Author:Zeng,weilong
@@ -180,5 +186,50 @@ public class IndexController {
 			result.setSuccess(false);
 		}
 		return result;
+	}
+	
+	/**
+	 * 
+	* @Title: getComments  
+	* @Description: get comments
+	* @return PageInfo<Comment> 
+	* @throws
+	* Author:Zeng,weilong
+	* @date 2019年6月19日
+	 */
+	@RequestMapping("getComments")
+	@ResponseBody
+	public PageInfo<Comment> getComments(int commentId,int page,int row){
+		return commentService.getComments(commentId,page,row);
+	}
+	
+	@RequestMapping("downloadFile")
+	public void downloadFile(HttpServletResponse res) throws IOException{
+		ServletOutputStream  out = null;
+		File file  = new File("E:\\file\\1558273461(1).jpg");
+		FileInputStream input = null;
+		res.reset();
+		res.setCharacterEncoding("utf-8");
+		res.setContentType("application/x-msdownload");  
+		res.setHeader("Content-disposition", "attachment;filename=aaa.jpg");
+		try {
+		    input= new FileInputStream(file);
+			byte[] buffer = new byte[1024];
+			out = res.getOutputStream();
+			int len=0;
+			while((len=input.read(buffer))!=-1){
+				out.write(buffer,0,len);
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally{
+			if(out!=null){
+				out.close();
+			}
+			if(input!=null){
+				input.close();
+			}
+		}
 	}
 }
