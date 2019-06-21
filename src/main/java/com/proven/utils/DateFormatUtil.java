@@ -141,7 +141,20 @@ public class DateFormatUtil {
 		}
 		return time;
 	}
-	
+
+	/**
+	 * 
+	 *@Description:get string date that format is "yyyydd",it is for file path
+	 *-----------------------------------------------------
+	 *Author			date				comments
+	 *Zeng,Weilong		2019年6月21日				init method
+	 *-----------------------------------------------------
+	 * @return String
+	 */
+	public static String getyyyyMMStr(Date date){
+		SimpleDateFormat format=new SimpleDateFormat("yyyyMM");
+		return format.format(date);
+	}
 	
 	
 }

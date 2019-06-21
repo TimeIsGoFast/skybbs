@@ -8,6 +8,7 @@ package com.proven.business.service;
 
 import com.github.pagehelper.PageInfo;
 import com.proven.base.service.BaseService;
+import com.proven.business.dtos.CommentDto;
 import com.proven.business.model.Comment;
 
 /**  
@@ -25,6 +26,6 @@ public interface CommentService extends BaseService<Comment>{
 	* Author:Zeng,weilong
 	* @date 2019年6月19日
 	*/
-	PageInfo<Comment> getComments(int commentId, int page, int row);
+	PageInfo<CommentDto> getComments(int commentId, int page, int row);
 
 }

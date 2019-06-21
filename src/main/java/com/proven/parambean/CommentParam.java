@@ -16,6 +16,7 @@ public class CommentParam {
 	private String comment;
 	private int titleId;
 	private int detailId;
+	private int replyId;
 	
 	public int getCommentId() {
 		return commentId;
@@ -40,6 +41,12 @@ public class CommentParam {
 	}
 	public void setDetailId(int detailId) {
 		this.detailId = detailId;
+	}
+	public int getReplyId() {
+		return replyId;
+	}
+	public void setReplyId(int replyId) {
+		this.replyId = replyId;
 	}
 	
 	

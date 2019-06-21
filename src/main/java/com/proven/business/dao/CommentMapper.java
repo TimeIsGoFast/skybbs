@@ -18,5 +18,5 @@ public interface CommentMapper extends Mapper<Comment> {
 	* Author:Zeng,weilong
 	* @date 2019年6月19日
 	*/
-	List<Comment> getComments(@Param(value="commentId")int commentId);
+	List<Comment> getComments(@Param(value="titleId")int titleId);
 }

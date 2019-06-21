@@ -35,6 +35,6 @@
   </sql>
   
   <select id="getComments" resultMap="BaseResultMap">
-  select * from t_t_comment where id=#{commentId} order by create_date desc
+  select * from t_t_comment where title_id=#{titleId} order by create_date desc
   </select>
 </mapper>

@@ -24,17 +24,23 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.proven.base.vo.Result;
+import com.proven.business.dtos.CommentDto;
 import com.proven.business.model.Comment;
 import com.proven.business.model.PostDetail;
 import com.proven.business.model.PostTitle;
+import com.proven.business.model.Reply;
 import com.proven.business.model.Theme;
 import com.proven.business.service.CommentService;
 import com.proven.business.service.PostDetailService;
 import com.proven.business.service.PostTitleService;
+import com.proven.business.service.ReplyService;
 import com.proven.business.service.ThemeService;
 import com.proven.parambean.CommentParam;
 import com.proven.system.model.User;
+import com.proven.utils.FileUtils;
 import com.proven.utils.SpringUtil;
+
+import tk.mybatis.mapper.util.StringUtil;
 
 /**  
 * @ClassName: IndexController  
@@ -56,6 +62,9 @@ public class IndexController {
 	
 	@Autowired
 	private CommentService commentService;
+	
+	@Autowired
+	private ReplyService replyService;
 	
 	@RequestMapping("/getThemeData")
 	public List<Theme> getThemeData(){
@@ -79,14 +88,25 @@ public class IndexController {
 		
 	}
 	
-	
+	/**
+	 * 
+	 *@Description:get deatil page
+	 *-----------------------------------------------------
+	 *Author			date				comments
+	 *Zeng,Weilong		2019年6月21日				init method
+	 *-----------------------------------------------------
+	 * @return String
+	 */
 	@RequestMapping("/detail")
 	public String detail(int id,Model model){
 		logger.info("detail method,and id= "+id);
 		User user = SpringUtil.getCurrentUser();
 		PostTitle postTitle = postTitleService.selectByKey(id);
+		//update post title hot number
 		postTitle.setHotNumber(postTitle.getHotNumber()+1);
 		postTitleService.update(postTitle);
+		
+		//update post Detail watch number
  		PostDetail postDetail = postDetailService.selectByPostId(id);
  		postDetail.setWatchNumber(postDetail.getWatchNumber()+1);
  		postDetailService.update(postDetail);
@@ -199,37 +219,79 @@ public class IndexController {
 	 */
 	@RequestMapping("getComments")
 	@ResponseBody
-	public PageInfo<Comment> getComments(int commentId,int page,int row){
+	public PageInfo<CommentDto> getComments(int commentId,int page,int row){
 		return commentService.getComments(commentId,page,row);
 	}
 	
+	/**
+	 * 
+	 *@Description:file download
+	 *-----------------------------------------------------
+	 *Author			date				comments
+	 *Zeng,Weilong		2019年6月21日				init method
+	 *-----------------------------------------------------
+	 * @return void
+	 */
 	@RequestMapping("downloadFile")
-	public void downloadFile(HttpServletResponse res) throws IOException{
-		ServletOutputStream  out = null;
-		File file  = new File("E:\\file\\1558273461(1).jpg");
-		FileInputStream input = null;
-		res.reset();
-		res.setCharacterEncoding("utf-8");
-		res.setContentType("application/x-msdownload");  
-		res.setHeader("Content-disposition", "attachment;filename=aaa.jpg");
+	public void downloadFile(HttpServletResponse res,int detailId) throws IOException{
+		PostDetail deatil = postDetailService.selectByKey(detailId);
 		try {
-		    input= new FileInputStream(file);
-			byte[] buffer = new byte[1024];
-			out = res.getOutputStream();
-			int len=0;
-			while((len=input.read(buffer))!=-1){
-				out.write(buffer,0,len);
-			}
-			
+			FileUtils.fileDownload(res, deatil.getAttachUrl(),deatil.getAttachName());
 		} catch (IOException e) {
 			e.printStackTrace();
-		}finally{
-			if(out!=null){
-				out.close();
-			}
-			if(input!=null){
-				input.close();
-			}
 		}
+	}
+	
+	/**
+	 * 
+	 *@Description:save reply
+	 *-----------------------------------------------------
+	 *Author			date				comments
+	 *Zeng,Weilong		2019年6月21日				init method
+	 *-----------------------------------------------------
+	 * @return Result
+	 */
+	@RequestMapping("saveReply")
+	@ResponseBody
+	public Result saveReply(CommentParam param){
+		Result result = new Result("success",true);
+		User user = SpringUtil.getCurrentUser();
+		if(user==null){
+			result.setMsg("saveReply method have a error!");
+			result.setSuccess(false);
+			result.setErrorCode(100);
+		}
+		try {
+			Comment comment = commentService.selectByKey(param.getCommentId());			
+			//enrich reply bean and save reply
+			Reply reply = new Reply();
+			reply.setCommentId(param.getCommentId());
+			reply.setContent(param.getComment());
+			reply.setCreateDate(new Date());
+			reply.setFromName(user.getName());
+			reply.setFromUid(user.getUid());
+			
+			if(StringUtil.isEmpty(Integer.toString(param.getReplyId()))){
+				reply.setReplyId(0);
+				reply.setToName(comment.getCreateName());
+				reply.setToUid(comment.getCreateBy());
+			}else{
+				reply.setReplyId(param.getReplyId());
+				Reply rep = replyService.selectByKey(param.getReplyId());
+				reply.setToName(rep.getFromName());
+				reply.setToUid(rep.getFromUid());
+			
+			}
+			//update comment's repeat number
+			PostDetail postDetail = postDetailService.selectByKey(comment.getDetailId());
+			postDetail.setRepeatNum(postDetail.getRepeatNum()+1);
+			postDetailService.update(postDetail);
+			
+		} catch (Exception e) {
+			logger.error(e);
+			result.setMsg("saveReply method have a error!");
+			result.setSuccess(false);
+		}
+		return result;
 	}
 }
