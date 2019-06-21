@@ -22,6 +22,17 @@ package com.proven.base.vo;
 public class Result {
 	private String msg;
 	private boolean success;
+	private  int errorCode;
+	
+	public Result(){}
+	/**  
+	* @param string
+	* @param b  
+	*/
+	public Result(String msg, boolean success) {
+		this.msg = msg;
+		this.success = success;
+	}
 	public String getMsg() {
 		return msg;
 	}
@@ -33,6 +44,12 @@ public class Result {
 	}
 	public void setSuccess(boolean success) {
 		this.success = success;
+	}
+	public int getErrorCode() {
+		return errorCode;
+	}
+	public void setErrorCode(int errorCode) {
+		this.errorCode = errorCode;
 	}
 	
 }

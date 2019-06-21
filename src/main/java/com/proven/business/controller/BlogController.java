@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.proven.base.vo.FileVo;
 import com.proven.business.model.Config;
 import com.proven.business.model.PostDetail;
 import com.proven.business.model.PostTitle;
@@ -32,6 +34,7 @@ import com.proven.business.service.PostTitleService;
 import com.proven.business.service.ThemeService;
 import com.proven.parambean.PostParam;
 import com.proven.system.model.User;
+import com.proven.utils.DateFormatUtil;
 import com.proven.utils.PropertyUtil;
 import com.proven.utils.SpringUtil;
 
@@ -58,6 +61,7 @@ public class BlogController {
 	@Autowired
 	private ConfigService configService;
 	
+	
 	@RequestMapping("/render")
 	public String render(Model model){
 		List<Theme> themeList = themeService.selectAll();
@@ -66,12 +70,20 @@ public class BlogController {
 	}
 	
 	
-	
+	/**
+	 * 
+	 *@Description:
+	 *-----------------------------------------------------
+	 *Author			date				comments
+	 *Zeng,Weilong		2019年6月21日			
+	 *-----------------------------------------------------
+	 * @return String
+	 */
 	@RequestMapping("/savePostDetail")
 	public String savePostDetail(Model model,HttpServletRequest request,@RequestParam MultipartFile attachFile,PostParam param){
 		logger.info("themeId = "+param.getThemeId()+",title= "+param.getTitle()+", content = "+param.getContent());
 		User user = SpringUtil.getCurrentUser();
-		String fileName = uploadFile(attachFile);
+		FileVo fileVo = uploadFile(attachFile);
 		PostTitle postTitle = new PostTitle();
 		PostDetail postDetail = new PostDetail();
 		enrichPostTitle(postTitle,user,param);
@@ -79,12 +91,16 @@ public class BlogController {
 		int id = postTitleService.insert(postTitle);
 		postDetail.setPostId(id);
 		if(attach){
-			postDetail.setAttachName(fileName);
-			postDetail.setAttachUrl(PropertyUtil.getProperty("upload.file.path")+fileName);
+			postDetail.setAttachName(fileVo.getFileName());
+			postDetail.setAttachUrl(fileVo.getFilePath());
 		}
 		
 		postDetailService.save(postDetail);
 		
+		//save theme when add a post
+		Theme theme = themeService.selectByKey(Integer.parseInt(param.getThemeId()));
+		theme.setPostNumber(theme.getPostNumber()+1);
+		themeService.update(theme);
 		List<Config> configList = configService.getConfigListByTypeId(1);
 		List<Theme> themeList = themeService.selectAll();
 		model.addAttribute("postTypes", configList);
@@ -151,14 +167,25 @@ public class BlogController {
 	* Author:Zeng,weilong
 	* @date 2019年6月16日
 	 */
-	private static String uploadFile(MultipartFile attachFile){
+	private static FileVo uploadFile(MultipartFile attachFile){
 		String originFileName = attachFile.getOriginalFilename();
 		logger.info("fileName = "+originFileName);
+		String filePath = "";
 		if(attachFile!=null&&originFileName!=null&&originFileName.length()>0){
 			attach = true;
-			String filePath = PropertyUtil.getProperty("upload.file.path") ;
 			
-			File newFile  = new File(filePath+originFileName);
+			//file path is source + yyyyMM+newFileName
+			String newFileName = UUID.randomUUID()+originFileName.substring(originFileName.lastIndexOf("."));
+			String dateStr = DateFormatUtil.getyyyyMMStr(new Date());
+		    filePath = PropertyUtil.getProperty("upload.file.path")+dateStr;
+			//if file path not exist,then create file
+			File file  = new File(filePath);
+			if(!file.exists()){
+				file.mkdirs();
+			}
+			filePath = filePath+File.separator+newFileName;
+			File newFile  = new File(filePath);
+			logger.info("uploadFile method,the file path for save is "+filePath);
 			try {
 				attachFile.transferTo(newFile);
 			} catch (IllegalStateException e) {
@@ -169,7 +196,7 @@ public class BlogController {
 				e.printStackTrace();
 			}
 		}
-		return originFileName;
+		return new FileVo(originFileName,filePath);
 	}
 	
 	
