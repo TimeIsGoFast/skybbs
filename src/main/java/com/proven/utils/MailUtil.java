@@ -38,7 +38,7 @@ public class MailUtil {
 		// 才能够正常发送邮件给收件人，QQ邮箱需要使用SSL，端口号465或587      
 		// ts.connect("smtp.qq.com",587,"QQ号","授权码"); 
 		//wplkfgfgcgohbacf 
-		ts.connect("smtp.qq.com", 587, connent[2], "expcwuzaxumcjebf");
+		ts.connect("smtp.qq.com", 587, connent[2], connent[3]);
 		// 4、创建邮件  
 		Message message;
 		try {
@@ -79,12 +79,12 @@ public class MailUtil {
 	
 	public static void main(String[] args) throws MessagingException{
 		String[] connent = new String[10] ;
-		String info = "激活:<a href='http://127.0.0.1:8080/mailWeb1602/ActiveServlet?";
+		String info = "激活:<a href=\"http://127.0.0.1:8080/mailWeb1602/ActiveServlet?\">点击激活账户</a>";
         info = info + "<br/>如果激活未成功，请把地址复制到浏览器进行手动请求以进行激活:http://127.0.0.1:8080/mailWeb1602/ActiveServlet?acode=";
-		connent[0]="test";
+		connent[0]="用户激活";
 		connent[1]=info;
 		connent[2]="1501122784";
-		MailUtil.sendEmail("1501122784@qq.com", "weilongzeng@hengtiansoft.com",connent);
+		MailUtil.sendEmail("1501122784@qq.com", "1501122784@qq.com",connent);
 	}
 
 }

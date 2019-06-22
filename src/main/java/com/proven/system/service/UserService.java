@@ -26,4 +26,6 @@ public interface UserService extends BaseService<User>{
 
 	User getUserByUid(String uid);
 
+	void saveUserRoleMap(Integer id, int roleId);
+
 }

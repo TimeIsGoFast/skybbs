@@ -38,4 +38,10 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 	public User getUserByUid(String uid) {
 		return userMapper.getUserByUid(uid);
 	}
+
+	@Override
+	public void saveUserRoleMap(Integer userId, int roleId) {
+		userMapper.saveUserRoleMap(userId,roleId);
+		
+	}
 }

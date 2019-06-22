@@ -31,4 +31,8 @@
   <select id="getUserByUid" resultMap="BaseResultMap">
     	select * from t_s_user where uid=#{uid}
   </select>
+  
+  <insert id="saveUserRoleMap">
+  insert into t_s_user_role(user_id,role_id) values(#{userId},#{roleId})
+  </insert>
 </mapper>
