@@ -25,4 +25,6 @@ public interface UserMapper extends Mapper<User> {
 	* 2018年9月21日     Administrator           v1.0.0              
 	*/
 	User getUserByUid(@Param(value="uid")String uid);
+
+	void saveUserRoleMap(@Param(value="userId")Integer userId, @Param(value="roleId")int roleId);
 }
