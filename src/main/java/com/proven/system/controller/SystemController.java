@@ -83,6 +83,13 @@ public class SystemController {
 			result.setSuccess(false);
 			result.setMsg("帐号密码错误");
 		}
+		
+		User user = userService.getUserByUid(token.getUsername());
+		
+		if("N".equalsIgnoreCase(user.getEnabled())){
+			result.setSuccess(false);
+			result.setMsg("该账号还没激活");
+		}
 		return result;
 	}
 	
