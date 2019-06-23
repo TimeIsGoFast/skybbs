@@ -107,6 +107,22 @@ public class IndexController {
  		PostDetail postDetail = postDetailService.selectByPostId(id);
  		postDetail.setWatchNumber(postDetail.getWatchNumber()+1);
  		postDetailService.update(postDetail);
+ 		//get previous title id
+ 		int previousId = id-1;
+ 		if(previousId<=0){
+ 			previousId=0;
+ 		}
+ 		PostTitle prePostTitle = postTitleService.selectByKey(previousId);
+ 		if(prePostTitle!=null){
+ 			model.addAttribute("previousId", previousId);
+ 		}
+ 		//get next title id
+ 		int nextId= id+1;
+ 		PostTitle nextPostTitle = postTitleService.selectByKey(nextId);
+ 		if(nextPostTitle!=null){
+ 			model.addAttribute("nextId", nextId);
+ 		}
+ 		
 		model.addAttribute("postTitle", postTitle);
 		model.addAttribute("postDetail", postDetail);
 		model.addAttribute("user", user);
@@ -145,8 +161,9 @@ public class IndexController {
 		result.setSuccess(true);
 		User user = SpringUtil.getCurrentUser();
 		if(user==null){
-			result.setMsg("failed");
+			result.setMsg("user have not login!");
 			result.setSuccess(false);
+			result.setErrorCode(100);
 			return result;
 		}
 		try {
@@ -168,6 +185,95 @@ public class IndexController {
 		}
 		
 		return result;
+	}
+	
+
+	
+	/**
+	 * 
+	* @Title: getComments  
+	* @Description: get comments
+	* @return PageInfo<Comment> 
+	* @throws
+	* Author:Zeng,weilong
+	* @date 2019年6月19日
+	 */
+	@RequestMapping("getComments")
+	@ResponseBody
+	public PageInfo<CommentDto> getComments(int commentId,int page,int row){
+		return commentService.getComments(commentId,page,row);
+	}
+	
+	/**
+	 * 
+	 *@Description:save reply
+	 *-----------------------------------------------------
+	 *Author			date				comments
+	 *Zeng,Weilong		2019年6月21日				init method
+	 *-----------------------------------------------------
+	 * @return Result
+	 */
+	@RequestMapping("saveReply")
+	@ResponseBody
+	public Result saveReply(CommentParam param){
+		Result result = new Result("success",true);
+		User user = SpringUtil.getCurrentUser();
+		if(user==null){
+			result.setMsg("user have not login in this web!");
+			result.setSuccess(false);
+			result.setErrorCode(100);
+		}
+		try {
+			Comment comment = commentService.selectByKey(param.getCommentId());			
+			//enrich reply bean and save reply
+			Reply reply = new Reply();
+			reply.setCommentId(param.getCommentId());
+			reply.setContent(param.getComment());
+			reply.setCreateDate(new Date());
+			reply.setFromName(user.getName());
+			reply.setFromUid(user.getUid());
+			
+			if(param.getReplyId()==0&&StringUtil.isEmpty(Integer.toString(param.getReplyId()))){
+				reply.setReplyId(0);
+				reply.setToName(comment.getCreateName());
+				reply.setToUid(comment.getCreateBy());
+			}else{
+				reply.setReplyId(param.getReplyId());
+				Reply rep = replyService.selectByKey(param.getReplyId());
+				reply.setToName(rep.getFromName());
+				reply.setToUid(rep.getFromUid());
+			
+			}
+			//update comment's repeat number
+			PostDetail postDetail = postDetailService.selectByKey(comment.getDetailId());
+			postDetail.setRepeatNum(postDetail.getRepeatNum()+1);
+			postDetailService.update(postDetail);
+			
+		} catch (Exception e) {
+			logger.error(e);
+			result.setMsg("saveReply method have a error!");
+			result.setSuccess(false);
+		}
+		return result;
+	}
+	
+	/**
+	 * 
+	 *@Description:file download
+	 *-----------------------------------------------------
+	 *Author			date				comments
+	 *Zeng,Weilong		2019年6月21日				init method
+	 *-----------------------------------------------------
+	 * @return void
+	 */
+	@RequestMapping("downloadFile")
+	public void downloadFile(HttpServletResponse res,int detailId) throws IOException{
+		PostDetail deatil = postDetailService.selectByKey(detailId);
+		try {
+			FileUtils.fileDownload(res, deatil.getAttachUrl(),deatil.getAttachName());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -205,90 +311,6 @@ public class IndexController {
 		return result;
 	}
 	
-	/**
-	 * 
-	* @Title: getComments  
-	* @Description: get comments
-	* @return PageInfo<Comment> 
-	* @throws
-	* Author:Zeng,weilong
-	* @date 2019年6月19日
-	 */
-	@RequestMapping("getComments")
-	@ResponseBody
-	public PageInfo<CommentDto> getComments(int commentId,int page,int row){
-		return commentService.getComments(commentId,page,row);
-	}
 	
-	/**
-	 * 
-	 *@Description:file download
-	 *-----------------------------------------------------
-	 *Author			date				comments
-	 *Zeng,Weilong		2019年6月21日				init method
-	 *-----------------------------------------------------
-	 * @return void
-	 */
-	@RequestMapping("downloadFile")
-	public void downloadFile(HttpServletResponse res,int detailId) throws IOException{
-		PostDetail deatil = postDetailService.selectByKey(detailId);
-		try {
-			FileUtils.fileDownload(res, deatil.getAttachUrl(),deatil.getAttachName());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 	
-	/**
-	 * 
-	 *@Description:save reply
-	 *-----------------------------------------------------
-	 *Author			date				comments
-	 *Zeng,Weilong		2019年6月21日				init method
-	 *-----------------------------------------------------
-	 * @return Result
-	 */
-	@RequestMapping("saveReply")
-	@ResponseBody
-	public Result saveReply(CommentParam param){
-		Result result = new Result("success",true);
-		User user = SpringUtil.getCurrentUser();
-		if(user==null){
-			result.setMsg("saveReply method have a error!");
-			result.setSuccess(false);
-			result.setErrorCode(100);
-		}
-		try {
-			Comment comment = commentService.selectByKey(param.getCommentId());			
-			//enrich reply bean and save reply
-			Reply reply = new Reply();
-			reply.setCommentId(param.getCommentId());
-			reply.setContent(param.getComment());
-			reply.setCreateDate(new Date());
-			reply.setFromName(user.getName());
-			reply.setFromUid(user.getUid());
-			
-			if(StringUtil.isEmpty(Integer.toString(param.getReplyId()))){
-				reply.setReplyId(0);
-				reply.setToName(comment.getCreateName());
-				reply.setToUid(comment.getCreateBy());
-			}else{
-				reply.setReplyId(param.getReplyId());
-				Reply rep = replyService.selectByKey(param.getReplyId());
-				reply.setToName(rep.getFromName());
-				reply.setToUid(rep.getFromUid());
-			
-			}
-			//update comment's repeat number
-			PostDetail postDetail = postDetailService.selectByKey(comment.getDetailId());
-			postDetail.setRepeatNum(postDetail.getRepeatNum()+1);
-			postDetailService.update(postDetail);
-			
-		} catch (Exception e) {
-			logger.error(e);
-			result.setMsg("saveReply method have a error!");
-			result.setSuccess(false);
-		}
-		return result;
-	}
 }

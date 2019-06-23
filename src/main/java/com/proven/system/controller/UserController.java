@@ -13,6 +13,7 @@ import java.util.Date;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -59,7 +60,7 @@ public class UserController extends BaseController<User>{
 		logger.info("username="+param.getEmail()+" ,fullname"+param.getNickName()+" ,telephone"+param.getTel()+" ,password"+param.getPassword());
 		//judge user if exist in database
 		User dbuser = userService.getUserByUid(param.getEmail());
-		if(dbuser!=null){
+		if(dbuser==null){
 			try {
 				//register
 				User user = new User();
@@ -78,7 +79,7 @@ public class UserController extends BaseController<User>{
 				int roleId = 3;
 				userService.saveUserRoleMap(users.getId(),roleId);				
 				//send email to active user account
-				String[] connect = enrichConnect();
+				String[] connect = enrichConnect(users.getId());
 				MailUtil.sendEmail(PropertyUtil.getProperty("mail.from.user"), users.getMail(), connect);
 				
 			} catch (Exception e) {
@@ -99,10 +100,10 @@ public class UserController extends BaseController<User>{
 		return result;
 	}
 
-	private String[] enrichConnect() {
+	private String[] enrichConnect(int userId) {
 		String[] connent = new String[10] ;
-		String info = "激活:<a href=\"http://127.0.0.1:8080/mailWeb1602/ActiveServlet?\">点击激活账户</a>";
-        info = info + "<br/>如果激活未成功，请把地址复制到浏览器进行手动请求以进行激活:http://127.0.0.1:8080/mailWeb1602/ActiveServlet?acode=";
+		String info = "激活:<a href=\"http://"+PropertyUtil.getProperty("app.url")+"/skybbs/user/enableUser.do?userId="+userId+"\">点击激活账户</a>";
+        info = info + "<br/>如果激活未成功，请把地址复制到浏览器进行手动请求以进行激活:"+"http://"+PropertyUtil.getProperty("app.url")+"/skybbs/user/enableUser.do?userId="+userId;
 		connent[0]=PropertyUtil.getProperty("mail.title");
 		connent[1]=info;
 		connent[2]=PropertyUtil.getProperty("mail.qq");
@@ -115,7 +116,8 @@ public class UserController extends BaseController<User>{
 		User user = userService.selectByKey(userId);
 		user.setEnabled("Y");
 		userService.update(user);
-		return "login";
+
+		return "redirect:/renderLogin.do";
 		
 	}
 }
