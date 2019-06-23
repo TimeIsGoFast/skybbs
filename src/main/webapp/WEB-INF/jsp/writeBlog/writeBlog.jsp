@@ -5,7 +5,7 @@
 <html lang="zh">
     <head>
         <meta charset="utf-8" />
-        <title>Post</title>
+        <title>写帖子</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath }/static/markdown/examples/css/style.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath }/static/markdown/css/editormd.css" />
         <link rel="Shortcut Icon" href="${pageContext.request.contextPath }/static/images/title.jpg" type="image/x-icon">

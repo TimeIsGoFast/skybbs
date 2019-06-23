@@ -233,7 +233,7 @@ public class IndexController {
 			reply.setFromName(user.getName());
 			reply.setFromUid(user.getUid());
 			
-			if(param.getReplyId()==0&&StringUtil.isEmpty(Integer.toString(param.getReplyId()))){
+			if(param.getReplyId()==0||StringUtil.isEmpty(Integer.toString(param.getReplyId()))){
 				reply.setReplyId(0);
 				reply.setToName(comment.getCreateName());
 				reply.setToUid(comment.getCreateBy());
@@ -248,7 +248,7 @@ public class IndexController {
 			PostDetail postDetail = postDetailService.selectByKey(comment.getDetailId());
 			postDetail.setRepeatNum(postDetail.getRepeatNum()+1);
 			postDetailService.update(postDetail);
-			
+			replyService.save(reply);
 		} catch (Exception e) {
 			logger.error(e);
 			result.setMsg("saveReply method have a error!");

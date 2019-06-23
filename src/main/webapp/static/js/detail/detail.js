@@ -16,14 +16,22 @@ function getDetail(){
 			if(res.list.length>0){
 				$('#media-list').empty();
 				$.each(res.list, function(key,value){
-					$('#media-list').append('<li id="media'+value.comment.id+'"><div class="media-left">'+
-						'<a href="#"><img class="media-object" src="'+path+'/static/images/logo2.jpg"></a></div>'+
+					var linkNum = '';
+					var treadNum = '';
+					if(value.comment.linkNum != 0){
+						linkNum = value.comment.linkNum;
+					}
+					if(value.comment.treadNum != 0){
+						treadNum = value.comment.treadNum;
+					}
+					$('#media-list').append('<li id="media'+value.comment.id+'" class="media"><div class="media-left">'+
+						'<a href="#"><img class="media-object" src="'+path+'/static/images/logo3.png"></a></div>'+
 						'<div class="media-body"><div class="row"><h4 class="media-heading col-md-8">'+value.comment.createName+'</h4>'+
-						'<h5 class="col-md-4" style="text-align:right;">发表时间：'+value.comment.createDate+'</h5>'+'</div><p class="list-content">'+value.comment.comment+'</p>'+
+						'<h5 class="col-md-4" style="text-align:right;">#'+(key+1)+' 发表时间：'+value.comment.createDate+'</h5>'+'</div><p class="list-content">'+value.comment.comment+'</p>'+
 						'<div class="row coment_body_P"><div class="col-md-12">'+
-	                    '<a onclick="showApply('+value.comment.id+')"><i class="fa fa-reply" aria-hidden="true"></i>回复</a>&nbsp;&nbsp;&nbsp;'+
-	                    '<a onclick="doSupport('+value.comment.id+')" class="reply-support"><i class="fa fa-thumbs-up" aria-hidden="true"></i> 支持</a>&nbsp;&nbsp;&nbsp;'+
-	                    '<a onclick="doAgainst('+value.comment.id+')" class="reply-against"><i class="fa fa-thumbs-down" aria-hidden="true">反对</i></a></div></div></div>'+
+	                    '<a onclick="showApply('+value.comment.id+')"><i class="fa fa-reply" aria-hidden="true"> 回复</i></a>&nbsp;&nbsp;&nbsp;'+
+	                    '<a onclick="doSupport('+value.comment.id+')" class="reply-support"><i class="fa fa-thumbs-up" aria-hidden="true"> 支持 '+linkNum+'</i></a>&nbsp;&nbsp;&nbsp;'+
+	                    '<a onclick="doAgainst('+value.comment.id+')" class="reply-against"><i class="fa fa-thumbs-down" aria-hidden="true"> 反对 '+treadNum+'</i></a></div></div></div>'+
 	                    '<div id="reply-div'+value.comment.id+'" class="media-body-reply reply-div"><textarea id="reply-context'+value.comment.id+'" class="form-control"></textarea>'+
 	                    '<div class="btn-group"><button class="btn btn-primary" onclick="doReply('+value.comment.id+')">回复</button><button class="btn" onclick="hideApply('+value.comment.id+')">取消</button></div></div>'+
 						'</li>')
@@ -55,7 +63,7 @@ function doComment(){
 			'detailId': detailId,
 		},
 		success:function(res){
-			console.log(res);
+			$('#detail-comment').val('');
 			getDetail();
 		}
 	})
@@ -85,7 +93,7 @@ function doReply(id){
 			'detailId': detailId,
 		},
 		success:function(res){
-			console.log(res);
+			$('#reply-context'+id).val('');
 			hideApply(id);
 			getDetail();
 		}
@@ -102,7 +110,6 @@ function doLOT(id, type){
 			'type': type
 		},
 		success:function(res){
-			console.log(res);
 			getDetail();
 		}
 	})

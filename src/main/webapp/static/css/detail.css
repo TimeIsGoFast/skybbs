@@ -7,6 +7,11 @@ body{
 a{
 	cursor: pointer;
 }
+
+#media-list>li.media{
+	padding: 15px 0;
+	border-top: 1px dashed #ccc;
+}
 .title_box{
 	margin-top:30px;
 	height:35px;
@@ -104,8 +109,7 @@ a{
 
 .coment_body_P{
 	border-top:1px dashed #ccc;
-	margin-top:10px;
-	
+	padding-top:10px;
 }
 
 .media-body-reply{
@@ -113,7 +117,7 @@ a{
 }
 
 .list-name,.list-content{
-	font-size: 18px;
+	font-size: 16px;
 }
 
 .reply-action{
@@ -134,4 +138,8 @@ a{
 
 .reply-div{
 	display: none;
+}
+
+.file-download{
+	padding: 20px;
 }
