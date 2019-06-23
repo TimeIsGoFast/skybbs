@@ -4,6 +4,9 @@ body{
   background-color: #e6e6e6;
 
 }
+a{
+	cursor: pointer;
+}
 .title_box{
 	margin-top:30px;
 	height:35px;
@@ -103,4 +106,32 @@ body{
 	border-top:1px dashed #ccc;
 	margin-top:10px;
 	
+}
+
+.media-body-reply{
+	padding: 10px 0 0 74px;
+}
+
+.list-name,.list-content{
+	font-size: 18px;
+}
+
+.reply-action{
+	color:#337ab7;
+}
+
+.reply-support{
+	color: #5cb85c;
+}
+
+.reply-against{
+	color: #d9534f;
+}
+
+.btn-group{
+	margin-top: 10px;
+}
+
+.reply-div{
+	display: none;
 }

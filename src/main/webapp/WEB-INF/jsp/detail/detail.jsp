@@ -25,13 +25,19 @@
 			  <div class="panel-body">
 				 <div class="row">
 				    <div class="col-md-10">
-				    	<button type="button" class="btn btn-success">发帖&nbsp;&nbsp;<i class="fa fa-caret-down" aria-hidden="true"></i></button>
-				    </div>
-				      <div class="col-md-1">
-				    	<button type="button" class="btn btn-default"><i class="fa fa-caret-left" aria-hidden="true"></i>&nbsp;上一篇</button>
+				    	<a class="btn btn-success" href="${pageContext.request.contextPath }/blog/render.do" target="_blank">发帖&nbsp;&nbsp;<i class="fa fa-caret-down" aria-hidden="true"></i></a>
 				    </div>
 				     <div class="col-md-1">
-				    	<button type="button" class="btn btn-default">下一篇 &nbsp;<i class="fa fa-caret-right" aria-hidden="true"></i> </button>
+				        <c:if test="${not empty previousId}">
+				        <a class="btn btn-default" href="${pageContext.request.contextPath }/index/detail.do?id=${previousId}"><i class="fa fa-caret-left" aria-hidden="true"></i>&nbsp;上一篇</a>
+				        </c:if>
+				    	
+				    </div>
+				     <div class="col-md-1">
+				        <c:if test="${not empty nextId}">
+				        <a  class="btn btn-default" href="${pageContext.request.contextPath }/index/detail.do?id=${nextId}">下一篇 &nbsp;<i class="fa fa-caret-right" aria-hidden="true"></i> </a>
+				        </c:if>
+				    	
 				    </div>
 				 </div>
 				 
@@ -61,6 +67,7 @@ ${postDetail.content}
 		
 		</textarea>         
 							            </div>
+							            <c:if test="${postTitle.attach eq 1}"><a href="${pageContext.request.contextPath }/index/downloadFile.do?detailId=${postDetail.id}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;附件下载</a></c:if>
 							        </div>
 					 		</div>
 
@@ -74,14 +81,14 @@ ${postDetail.content}
 		   		 <div class="comment_class">
 			   		 <div class="row">
 			   		   <br/>
-			   		     <textarea class="form-control" rows="3" placeholder="添加评论"></textarea>
+			   		     <textarea class="form-control" rows="3" placeholder="添加评论" id="detail-comment"></textarea>
 			   		     <br/>
-			   		     <button class="btn btn-danger" style="float:right;" type="submit">   评论    </button>
+			   		     <button class="btn btn-danger" style="float:right;" onclick="doComment()">评论</button>
 			   		 </div>
 			   		 <hr>
 					 <div class="row comments">
-					 		<ul class="media-list">
-							  <li class="media">
+					 		<ul class="media-list" id="media-list">
+							  <%-- <li class="media">
 							    <div class="media-left">
 							      <a href="#">
 							        <img class="media-object" src="${pageContext.request.contextPath }/static/images/logo2.jpg" alt="...">
@@ -89,22 +96,18 @@ ${postDetail.content}
 							    </div>
 							    <div class="media-body">
 							      <h4 class="media-heading">小曾的明天</h4>
-							      <h5>发表时间：2018-06-13 08:11:00</h5>
+							      <h5 style="float:right">#37&nbsp;&nbsp;&nbsp;&nbsp;发表时间：2018-06-13 08:11:00</h5>
 							    		很好的文章。
 							    	
 	                               <div class="row coment_body_P">
-	                                 <div class="col-md-11">
-	                                 	<a href="${pageContext.request.contextPath }/index/downloadFile.do">下载</a>
+	                                 <div class="col-md-12">
 		                                <a href="#"><i class="fa fa-reply" aria-hidden="true"></i>回复</a> &nbsp;&nbsp;&nbsp;
 		                               	<a href="#"><i class="fa fa-thumbs-up" aria-hidden="true"></i> 支持</a> &nbsp;&nbsp;&nbsp;
 		                               	<a href="#"><i class="fa fa-thumbs-down" aria-hidden="true">反对</i></a> 
 	                                 </div>
-	                               	 <div class="col-md-1">
-	                               	 #37
-	                               	 </div>	
 	                               	</div>
 							    </div>
-							  </li>
+							  </li> --%>
 							</ul>
 					 </div>
 				 </div>
@@ -126,7 +129,21 @@ ${postDetail.content}
         <script src="${pageContext.request.contextPath }/static/markdown/lib/jquery.flowchart.min.js"></script>
 
         <script src="${pageContext.request.contextPath }/static/markdown/editormd.js"></script>
+        <script>
+			$('body').ajaxComplete(function(ev, xhr, settings) {
+			    var res = xhr.responseText;
+			    try {
+			        var jsonData = JSON.parse(res);
+			        if (jsonData.errorCode == 100) {
+			            window.location.href="/login.jsp"
+			        }
+			     } catch (e) {}
+			});
+		</script>
         <script type="text/javascript">
+        	var path = '${pageContext.request.contextPath}'
+        	var titleId = '${postTitle.id}'
+        	var detailId = '${postDetail.id}'
             $(function() {
                 var testEditormdView, testEditormdView2;
                 
@@ -142,6 +159,7 @@ ${postDetail.content}
                 });
             });
         </script>
+        <script src="${pageContext.request.contextPath }/static/js/detail/detail.js"></script>
  <div id="footer" class="footer">
   	 <p>版权所有：XXX公司</p>
  </div>

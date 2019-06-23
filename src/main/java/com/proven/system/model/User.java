@@ -14,8 +14,6 @@ public class User implements Serializable {
      */
     private String uid;
     
-    @Column(name = "desk_user_id")
-    private Integer deskUserId;
 
     /**
      * 中文名
@@ -324,13 +322,6 @@ public class User implements Serializable {
         this.salt = salt == null ? null : salt.trim();
     }
 
-	public Integer getDeskUserId() {
-		return deskUserId;
-	}
-
-	public void setDeskUserId(Integer deskUserId) {
-		this.deskUserId = deskUserId;
-	}
     
     
 }

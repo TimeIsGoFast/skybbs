@@ -16,14 +16,14 @@
 <body>
 <div class="message">
     <img src="${pageContext.request.contextPath}/static/images/logo1.png">
-    <p class="p2">SUNSHINE</p>
-    <p class="p1">成为一个阳光的人、正直的人</p>
+    <p class="p2">SKYBBS</p>
+    <p class="p1">让知识成为你最宝贵的财富</p>
 </div>
 <div class="navs-slider">
     <a href="#" onclick="_login()" id="nav_login">登录</a>
     <a href="#" onclick="register()" id="nav_register">注册</a>
 </div>
-<p class="error_message"></p>
+<p class="error_message">${activeSuccess}</p>
 <div class="_login"  id="choseLogin">
     <form id="fm" method="post">
         <div class="div1">
@@ -39,18 +39,21 @@
 <div class="_register" style="display: none" id="choseRegister">
     <form id="register_form" method="post">
         <div class="div1">
-            <input type="text" name="uid" id="_uid" placeholder="学号或手机号">
+            <input type="text" name="email" id="_uid" placeholder="邮箱" autocomplete="off">
         </div>
         <div class="div1">
-            <input type="text" name="name"  id="_name" placeholder="昵称或姓名">
+            <input type="text" name="nickName"  id="_name" placeholder="昵称或姓名" autocomplete="off">
+        </div>
+          <div class="div1">
+            <input type="text" name="tel"  id="_tel" placeholder="手机号" autocomplete="off">
         </div>
         <div class="div2">
-            <input type="password" name="password" id="_password" placeholder="密码(密码不小于6位)">
+            <input type="password" name="password" id="_password" placeholder="密码(密码不小于6位)" autocomplete="off">
         </div>
 
 
     </form>
-    <input type="button" value="注册sunshine" class="submit1" onclick="register_button()">
+    <input type="button" value="注册skybbs" class="submit1" onclick="register_button()">
 </div>
 
 </body>
@@ -68,6 +71,8 @@
     }
     //注册选择
     function register(){
+    	$("#_password").val("");
+    	$("#_uid").val("");
     	$(".error_message").text("");
         $("#choseLogin").hide();
         $("#choseRegister").show();
@@ -120,14 +125,20 @@
 		var uid = $("#_uid").val();
 		var name = $("#_name").val();
 		var pwd = $("#_password").val();
+		var tel = $("#_tel").val();
 		var reg = /^[0-9A-Za-z]{6,}$/;
-	
-		if(!uid.match("\\d+")){
-			$(".error_message").text("账号必须为数字！");
+		var mailReg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$");
+		var telReg=/^[1][3,4,5,7,8][0-9]{9}$/;
+		if(!mailReg.test(uid)){
+			$(".error_message").text("账号必须为邮箱类型！");
 			return;
 		}
 		if(!reg.test(pwd)){
 			$(".error_message").text("密码长度不小于六位！");
+			return;
+		}
+		if(!telReg.test(tel)){
+			$(".error_message").text("手机号码格式不正确！");
 			return;
 		}
 		
@@ -137,15 +148,11 @@
 			data:$("#register_form").serialize(),
 			dataType:'json',
 			success:function(result){
-				var info = parseInt(result);
-				if (info==1) {
-					$("#username").val(uid);
-					$("#password").val(pwd);
-					_login();
-					
-					
+				console.log(result);
+				if (result.success) {
+					$(".error_message").text("注册成功！请查看邮箱来激活账号！");
 				} else {			
-					$(".error_message").text("该账号已被注册！");
+					$(".error_message").text(result.msg);
 				}
 				
 			},

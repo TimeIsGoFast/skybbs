@@ -55,8 +55,12 @@ public class CommentServiceImpl extends BaseServiceImpl<Comment> implements Comm
 		List<Comment> comments = commentMapper.getComments(titleId);
 		
 		//get comments id to get all of the reply bean
-		List<Integer> commentIds = comments.stream().map(Comment::getId).collect(Collectors.toList());		
-		List<Reply> replys = replyMapper.getReplysByCommentIds(commentIds);
+		List<Integer> commentIds = comments.stream().map(Comment::getId).collect(Collectors.toList());
+		List<Reply> replys = new ArrayList<>();
+		if(!commentIds.isEmpty()){
+			replys = replyMapper.getReplysByCommentIds(commentIds);
+		}
+		//List<Reply> replys = replyMapper.getReplysByCommentIds(commentIds);
 		List<CommentDto> commentDtos = new ArrayList<>();
 		//get commentsDaos that include comment and reply
 		for(Comment com : comments){			

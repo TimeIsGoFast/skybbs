@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,22 +22,32 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.proven.base.vo.FileVo;
+import com.proven.base.vo.Result;
+import com.proven.business.model.Comment;
 import com.proven.business.model.Config;
 import com.proven.business.model.PostDetail;
 import com.proven.business.model.PostTitle;
+import com.proven.business.model.Reply;
 import com.proven.business.model.Theme;
+import com.proven.business.service.CommentService;
 import com.proven.business.service.ConfigService;
 import com.proven.business.service.PostDetailService;
 import com.proven.business.service.PostTitleService;
+import com.proven.business.service.ReplyService;
 import com.proven.business.service.ThemeService;
+import com.proven.parambean.CommentParam;
 import com.proven.parambean.PostParam;
 import com.proven.system.model.User;
 import com.proven.utils.DateFormatUtil;
+import com.proven.utils.FileUtils;
 import com.proven.utils.PropertyUtil;
 import com.proven.utils.SpringUtil;
+
+import tk.mybatis.mapper.util.StringUtil;
 
 /**  
 * @ClassName: BlogController  
@@ -60,6 +71,11 @@ public class BlogController {
 	
 	@Autowired
 	private ConfigService configService;
+	@Autowired
+	private CommentService commentService;
+	
+	@Autowired
+	private ReplyService replyService;
 	
 	
 	@RequestMapping("/render")
@@ -198,6 +214,8 @@ public class BlogController {
 		}
 		return new FileVo(originFileName,filePath);
 	}
+	
+	
 	
 	
 }
