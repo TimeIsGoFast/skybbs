@@ -48,7 +48,7 @@ public class PostTitleServiceImpl extends BaseServiceImpl<PostTitle> implements 
 		}
 		//judge whether theme id is empty
 		if(StringUtils.isEmpty(themeId)){
-			themeId="0";
+			themeId="1";
 		}
 		PageHelper.startPage(page, row);
 		List<PostTitle> list = postTitleMapper.getPostTitleData(Integer.parseInt(typeId),Integer.parseInt(themeId));

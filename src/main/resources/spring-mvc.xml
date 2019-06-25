@@ -62,6 +62,6 @@
         <!-- 最大内存大小 -->  
         <property name="maxInMemorySize" value="10240"/>  
         <!-- 最大文件大小，-1为不限制大小 -->  
-        <property name="maxUploadSize" value="-1"/>  
+        <property name="maxUploadSize" value="20971520"/>  
     </bean>  
 </beans>

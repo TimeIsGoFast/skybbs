@@ -111,13 +111,22 @@ public class UserController extends BaseController<User>{
 		return connent;
 	}
 	
+	/**
+	 * 
+	 *@Description:
+	 *-----------------------------------------------------
+	 *Author			date				comments
+	 *Zeng,Weilong		2019年6月25日			enable user function
+	 *-----------------------------------------------------
+	 * @return String
+	 */
 	@RequestMapping("/enableUser")
-	public String enableUser(int userId){
+	public String enableUser(int userId,Model model){
 		User user = userService.selectByKey(userId);
 		user.setEnabled("Y");
 		userService.update(user);
-
-		return "redirect:/renderLogin.do";
+		model.addAttribute("user", user);
+		return "message";
 		
 	}
 }

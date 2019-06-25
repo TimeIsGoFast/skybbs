@@ -29,7 +29,7 @@
 	</bean>
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
-		 <property name="loginUrl" value="/renderLogin.do" /> 
+		 <property name="loginUrl" value="/index.do" /> 
 		<property name="successUrl" value="/index.do" />
 		<property name="unauthorizedUrl" value="/403.do" />
 		<property name="filters">

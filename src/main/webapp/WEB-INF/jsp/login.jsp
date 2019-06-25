@@ -8,12 +8,16 @@
  <link rel="Shortcut Icon" href="${pageContext.request.contextPath }/static/images/title.jpg" type="image/x-icon">
     <link href="${pageContext.request.contextPath}/static/css/cssReset.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/static/css/login.css" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/static/font-awesome-4.7.0/css/font-awesome.min.css">
     
 <script type="text/javascript">
 	
 </script>
 </head>
 <body>
+<div class="return_index"> 
+	<a href="${pageContext.request.contextPath}/index.do" ><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;返回主页</a>
+</div>
 <div class="message">
     <img src="${pageContext.request.contextPath}/static/images/logo1.png">
     <p class="p2">SKYBBS</p>
@@ -150,6 +154,9 @@
 			success:function(result){
 				console.log(result);
 				if (result.success) {
+					$("#username").val(uid);
+					$("#password").val(pwd);
+					_login();
 					$(".error_message").text("注册成功！请查看邮箱来激活账号！");
 				} else {			
 					$(".error_message").text(result.msg);
@@ -160,8 +167,7 @@
 				$(".error_message").text("出现未知错误！");
 			}
 			
-			
-		
+					
 		});
 		
 		

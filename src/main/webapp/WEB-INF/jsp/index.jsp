@@ -5,10 +5,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>skybbs</title>
+<title>主页</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="Shortcut Icon" href="${pageContext.request.contextPath }/static/images/title.jpg" type="image/x-icon">
     <link href="${pageContext.request.contextPath }/static/assets/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/static/font-awesome-4.7.0/css/font-awesome.min.css">
     <link href="${pageContext.request.contextPath }/static/css/index.css" rel="stylesheet">
     <script src="${pageContext.request.contextPath }/static/js/jquery-2.1.1.min.js"></script>
     <script src="${pageContext.request.contextPath }/static/assets/js/bootstrap.min.js"></script>
@@ -41,29 +42,44 @@
 	 	 <div class="col-md-1"></div>
 	  </div>
 	</div>
+	
   <div class="container-fluid" style="margin-top:30px;">
 	  <div class="row">
 	     <div class="col-md-1"></div>
 	 	 <div class="col-md-10 panel panel-default">
+	 	   
 			  <div class="panel-body">
+			
 			    <div class="row" >
-			 	 	<ul class="nav nav-pills" role="tablist" id="type_choose">
-						<c:forEach items="${postTypes}" var="postType">
-							<c:choose>
-							    <c:when test="${postType.typeId ==1}">
-							        <li role="presentation"  class="active" id="type_id_${postType.typeId}"><a href="javascript:void(0);"  onclick="selectTypeClick('${postType.typeId}')" >${postType.itemValue}</a></li>
-							    </c:when>
-							    <c:otherwise>
-							         <li role="presentation" id="type_id_${postType.typeId}"><a href="javascript:void(0);" onclick="selectTypeClick('${postType.typeId}')"> ${postType.itemValue}</a></li>
-							    </c:otherwise>
-							</c:choose>
-						</c:forEach>
-					</ul>
+			      
+			       <div class="col-md-10">
+				 	 	<ul class="nav nav-pills" role="tablist" id="type_choose">
+							<c:forEach items="${postTypes}" var="postType">
+								<c:choose>
+								    <c:when test="${postType.typeId ==1}">
+								        <li role="presentation"  class="active" id="type_id_${postType.typeId}"><a href="javascript:void(0);"  onclick="selectTypeClick('${postType.typeId}')" >${postType.itemValue}</a></li>
+								    </c:when>
+								    <c:otherwise>
+								         <li role="presentation" id="type_id_${postType.typeId}"><a href="javascript:void(0);" onclick="selectTypeClick('${postType.typeId}')"> ${postType.itemValue}</a></li>
+								    </c:otherwise>
+								</c:choose>
+							</c:forEach>
+						</ul>
+					</div>
+					<c:choose>
+					    <c:when test="${not empty user}">
+					        <div class="col-md-2"><a href="${pageContext.request.contextPath }/blog/render.do" target="_blank" class="btn btn-danger">&nbsp;<i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;写&nbsp;帖&nbsp;子&nbsp;&nbsp;</a></div>
+					    </c:when>
+					    <c:otherwise>
+					        <div class="col-md-2"><a href="${pageContext.request.contextPath }/renderLogin.do" target="_blank" class="btn btn-danger">&nbsp;<i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;写&nbsp;帖&nbsp;子&nbsp;&nbsp;</a></div>
+					    </c:otherwise>
+					</c:choose>
+					
 		   		</div>
 		   		<div>
 		   		<div class="row title_box" >
-			 	 	<div class="col-md-8 title_box_font">帖子标题</div>
-			 	 	<div class="col-md-1 title_box_font">作者</div>
+			 	 	<div class="col-md-7 title_box_font">帖子标题</div>
+			 	 	<div class="col-md-2 title_box_font">作者</div>
 			 	 	<div class="col-md-1 title_box_font">人气</div>
 			 	 	<div class="col-md-2 title_box_font">发布时间</div>
 		   		</div>
@@ -84,6 +100,7 @@
 	 	 </div>
 	 	 <div class="col-md-1"></div>
 	  </div>
+	</div>
 	</div>
     <input type="hidden" value="" id="type_id_value">
     <input type="hidden" value="" id="theme_id_value">

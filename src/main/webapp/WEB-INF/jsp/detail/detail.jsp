@@ -48,7 +48,7 @@
 				 			<p style="text-align:center;">${postTitle.author}</p>
 				 		</div>
 				 		<div class="img">
-				 		  <img src="${pageContext.request.contextPath }/static/images/logo2.jpg" alt="帅的被人砍">
+				 		  <img src="${pageContext.request.contextPath }/static/images/logo3.png" alt="帅的被人砍">
 				 		</div>
 				 		
 				 	</div>
@@ -67,7 +67,14 @@ ${postDetail.content}
 		
 		</textarea>         
 							            </div>
-							            <c:if test="${postTitle.attach eq 1}"><a href="${pageContext.request.contextPath }/index/downloadFile.do?detailId=${postDetail.id}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;附件下载</a></c:if>
+							           <c:choose>
+											<c:when test="${not empty user}">
+										        <c:if test="${postTitle.attach eq 1}"><div class="file-download"><span>${postDetail.attachName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="${pageContext.request.contextPath }/index/downloadFile.do?detailId=${postDetail.id}"><i class="fa fa-download" aria-hidden="true"></i>&nbsp;附件下载</a></div></c:if>
+										    </c:when>
+										    <c:otherwise>
+										        <c:if test="${postTitle.attach eq 1}"><div class="file-download"><span>${postDetail.attachName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="${pageContext.request.contextPath }/renderLogin.do" target="_blank"><i class="fa fa-download" aria-hidden="true"></i>&nbsp;附件下载</a></div></c:if>
+										    </c:otherwise>
+							            </c:choose>
 							        </div>
 					 		</div>
 
@@ -129,17 +136,6 @@ ${postDetail.content}
         <script src="${pageContext.request.contextPath }/static/markdown/lib/jquery.flowchart.min.js"></script>
 
         <script src="${pageContext.request.contextPath }/static/markdown/editormd.js"></script>
-        <script>
-			$('body').ajaxComplete(function(ev, xhr, settings) {
-			    var res = xhr.responseText;
-			    try {
-			        var jsonData = JSON.parse(res);
-			        if (jsonData.errorCode == 100) {
-			            window.location.href="/login.jsp"
-			        }
-			     } catch (e) {}
-			});
-		</script>
         <script type="text/javascript">
         	var path = '${pageContext.request.contextPath}'
         	var titleId = '${postTitle.id}'
@@ -160,6 +156,29 @@ ${postDetail.content}
             });
         </script>
         <script src="${pageContext.request.contextPath }/static/js/detail/detail.js"></script>
+        <script>
+          $.ajaxSetup({
+            contentType:"application/x-www-form-urlencoded;charset=utf-8",
+            complete:function(XMLHttpRequest,textStatus){
+               //通过XMLHttpRequest取得响应结果
+               var res = XMLHttpRequest.responseText;
+               try{
+                 var jsonData = JSON.parse(res);
+                 if(jsonData.errorCode == 100){
+                   //如果超时就处理 ，指定要跳转的页面(比如登陆页)
+                   alert(jsonData.msg);
+                   window.location.replace(path+"/renderLogin.do");
+                 }else if(jsonData.state == 0){
+                   //其他的异常情况,给个提示。
+                   alert(jsonData.msg);
+                 }else{
+                   //正常情况就不统一处理了
+                 }
+               }catch(e){
+               }
+             }
+          });
+		</script>
  <div id="footer" class="footer">
   	 <p>版权所有：XXX公司</p>
  </div>
