@@ -67,7 +67,14 @@ ${postDetail.content}
 		
 		</textarea>         
 							            </div>
-							            <c:if test="${postTitle.attach eq 1}"><div class="file-download"><span>${postDetail.attachName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="${pageContext.request.contextPath }/index/downloadFile.do?detailId=${postDetail.id}"><i class="fa fa-download" aria-hidden="true"></i>&nbsp;附件下载</a></div></c:if>
+							           <c:choose>
+											<c:when test="${not empty user}">
+										        <c:if test="${postTitle.attach eq 1}"><div class="file-download"><span>${postDetail.attachName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="${pageContext.request.contextPath }/index/downloadFile.do?detailId=${postDetail.id}"><i class="fa fa-download" aria-hidden="true"></i>&nbsp;附件下载</a></div></c:if>
+										    </c:when>
+										    <c:otherwise>
+										        <c:if test="${postTitle.attach eq 1}"><div class="file-download"><span>${postDetail.attachName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="${pageContext.request.contextPath }/renderLogin.do" target="_blank"><i class="fa fa-download" aria-hidden="true"></i>&nbsp;附件下载</a></div></c:if>
+										    </c:otherwise>
+							            </c:choose>
 							        </div>
 					 		</div>
 

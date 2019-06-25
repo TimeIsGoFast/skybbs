@@ -161,7 +161,7 @@ public class IndexController {
 		result.setSuccess(true);
 		User user = SpringUtil.getCurrentUser();
 		if(user==null){
-			result.setMsg("user have not login!");
+			result.setMsg("还没登录，不能评论相关信息!");
 			result.setSuccess(false);
 			result.setErrorCode(100);
 			return result;
@@ -219,9 +219,10 @@ public class IndexController {
 		Result result = new Result("success",true);
 		User user = SpringUtil.getCurrentUser();
 		if(user==null){
-			result.setMsg("user have not login in this web!");
+			result.setMsg("还没登录，不能回复相关信息!");
 			result.setSuccess(false);
 			result.setErrorCode(100);
+			return result;
 		}
 		try {
 			Comment comment = commentService.selectByKey(param.getCommentId());			
@@ -311,6 +312,18 @@ public class IndexController {
 		return result;
 	}
 	
-	
+	/**
+	 * 
+	 *@Description:
+	 *-----------------------------------------------------
+	 *Author			date				comments
+	 *Zeng,Weilong		2019年6月25日			show the message of the system
+	 *-----------------------------------------------------
+	 * @return String
+	 */
+	@RequestMapping("/message")
+	public String message(){
+		return "message";
+	}
 	
 }

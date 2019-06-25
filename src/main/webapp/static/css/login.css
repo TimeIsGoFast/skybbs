@@ -5,12 +5,33 @@ body{
 
 }
 .message{
-    margin-top: 50px;
     width: 100%;
     height: 230px;
 
 
 }
+.return_index{
+	width: 150px;
+    height: 50px;
+    margin-top:30px;
+    margin-left:6%;
+}
+
+.return_index a{
+	background-color: #eb283e;
+    font-size: 1em;
+    font-family: "Microsoft YaHei", serif;
+    border: 1px solid #eb283e;
+    border-radius: 3px;
+    color: white;
+    line-height: 41px;
+    width: 150px;
+    margin: auto;
+    outline: none;
+    cursor: pointer;
+    padding:5px 20px;
+}
+
 .message img{
     display: block;
     margin: 40px auto;
