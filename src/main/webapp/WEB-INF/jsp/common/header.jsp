@@ -28,7 +28,7 @@
       </form> -->
       <ul class="nav navbar-nav navbar-right">
          <c:if test="${ !empty user.name }">
-              <li><a href="javascript:void(0);" target="_blank">${user.name}</a></li>   
+              <li><a href="${pageContext.request.contextPath }/user/updateInfo.do?userId=${user.id}" target="_blank">${user.name}</a></li>   
          </c:if>
          <c:if test="${empty user.name }">
              <li><a href="${pageContext.request.contextPath }/renderLogin.do">登录</a></li>
@@ -38,6 +38,15 @@
           <ul class="dropdown-menu">
             <!-- <li><a href="#">我的主页</a></li> -->
             <li><a href="${pageContext.request.contextPath }/blog/render.do" target="_blank">写帖子</a></li>
+         	<c:choose>
+			    <c:when test="${not empty user}">
+			    	<li><a href="${pageContext.request.contextPath }/blog/render.do" target="_blank">写帖子</a></li>
+			    </c:when>
+			    <c:otherwise>
+			    <li><a href="${pageContext.request.contextPath }/renderLogin.do" target="_blank">写帖子</a></li>
+			    </c:otherwise>
+		  </c:choose>
+            <li><a href="${pageContext.request.contextPath }/user/updateInfo.do?userId=${user.id}" target="_blank">个人资料</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="${pageContext.request.contextPath }/logout.do">退出</a></li>
           </ul>

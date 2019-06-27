@@ -75,6 +75,13 @@ public class User implements Serializable {
     private String password;
 
     private String salt;
+    
+    private String company;
+    
+    @Column(name = "logo_url")
+    private String logoUrl;
+    
+    private Date birth;
 
     private static final long serialVersionUID = 1L;
 
@@ -322,6 +329,31 @@ public class User implements Serializable {
         this.salt = salt == null ? null : salt.trim();
     }
 
+	public String getCompany() {
+		return company;
+	}
+
+	public void setCompany(String company) {
+		this.company = company;
+	}
+
+	public String getLogoUrl() {
+		return logoUrl;
+	}
+
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
+	}
+
+	public Date getBirth() {
+		return birth;
+	}
+
+	public void setBirth(Date birth) {
+		this.birth = birth;
+	}
+
+	
     
     
 }

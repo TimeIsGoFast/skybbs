@@ -13,11 +13,21 @@ package com.proven.parambean;
 */
 public class UserParam {
 	
+	private String uid;
 	private String email;
 	private String nickName;
 	private String tel;
 	private String password;
 	private String comfirmPwd;
+	
+	
+	
+	public String getUid() {
+		return uid;
+	}
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
 	public String getEmail() {
 		return email;
 	}

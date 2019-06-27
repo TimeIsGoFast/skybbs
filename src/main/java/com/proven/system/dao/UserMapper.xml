@@ -19,13 +19,16 @@
     <result column="remark" property="remark" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
     <result column="salt" property="salt" jdbcType="VARCHAR" />
+    <result column="company" property="company" jdbcType="VARCHAR" />
+    <result column="logo_url" property="logoUrl" jdbcType="VARCHAR" />
+    <result column="birth" property="birth" jdbcType="DATE" />
   </resultMap>
   <sql id="Base_Column_List" >
     <!--
       WARNING - @mbggenerated
     -->
     id, uid, name, sex, tel, mail, enabled, create_date, update_date, create_by, update_by, 
-    remark, password, salt
+    remark, password, salt,company,logo_url,birth
   </sql>
   <select id="getUserByUid" resultMap="BaseResultMap">
     	select * from t_s_user where uid=#{uid}

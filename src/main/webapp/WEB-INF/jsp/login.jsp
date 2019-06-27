@@ -31,7 +31,7 @@
 <div class="_login"  id="choseLogin">
     <form id="fm" method="post">
         <div class="div1">
-            <input type="text" name="username" id="username" placeholder="学号或手机号">
+            <input type="text" name="username" id="username" placeholder="账户">
         </div>
         <div class="div2">
             <input type="password"  name="password" id="password" placeholder="密码">
@@ -43,16 +43,19 @@
 <div class="_register" style="display: none" id="choseRegister">
     <form id="register_form" method="post">
         <div class="div1">
-            <input type="text" name="email" id="_uid" placeholder="邮箱" autocomplete="off">
+            <input type="text" name="uid" id="_uid" placeholder="账户" >
         </div>
         <div class="div1">
-            <input type="text" name="nickName"  id="_name" placeholder="昵称或姓名" autocomplete="off">
+            <input type="text" name="nickName"  id="_name" placeholder="昵称或姓名" >
         </div>
-          <div class="div1">
-            <input type="text" name="tel"  id="_tel" placeholder="手机号" autocomplete="off">
+        <div class="div1">
+            <input type="text" name="email"  id="_email" placeholder="邮箱" >
+        </div>
+         <div class="div1">
+            <input type="text" name="tel"  id="_tel" placeholder="手机号" >
         </div>
         <div class="div2">
-            <input type="password" name="password" id="_password" placeholder="密码(密码不小于6位)" autocomplete="off">
+            <input type="password" name="password" id="_password" placeholder="密码(密码不小于6位)" >
         </div>
 
 
@@ -130,11 +133,17 @@
 		var name = $("#_name").val();
 		var pwd = $("#_password").val();
 		var tel = $("#_tel").val();
+		var email = $("#_email").val();
 		var reg = /^[0-9A-Za-z]{6,}$/;
+		var accountReg = /^[0-9A-Za-z]{5,}$/;
 		var mailReg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$");
 		var telReg=/^[1][3,4,5,7,8][0-9]{9}$/;
-		if(!mailReg.test(uid)){
-			$(".error_message").text("账号必须为邮箱类型！");
+		if(!accountReg.test(uid)){
+			$(".error_message").text("账号不能小于5位，不能有特殊字符！");
+			return;
+		}
+		if(!mailReg.test(email)){
+			$(".error_message").text("邮箱类型不正确！");
 			return;
 		}
 		if(!reg.test(pwd)){
@@ -145,6 +154,8 @@
 			$(".error_message").text("手机号码格式不正确！");
 			return;
 		}
+		
+		
 		
 		$.ajax({
 			type:'post',

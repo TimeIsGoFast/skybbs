@@ -71,7 +71,7 @@ public class UserController extends BaseController<User>{
 				user.setEnabled("N");
 				user.setPassword(param.getPassword());
 				user.setTel(param.getTel());
-				user.setUid(param.getEmail());
+				user.setUid(param.getUid());
 				//save user to user table
 				userService.save(user);
 				//save user_role map to user_role map,this is for permission,if did not do this operate, user will can't access any url
@@ -100,10 +100,20 @@ public class UserController extends BaseController<User>{
 		return result;
 	}
 
-	private String[] enrichConnect(int userId) {
+	/**
+	 * 
+	 *@Description:
+	 *-----------------------------------------------------
+	 *Author			date				comments
+	 *Zeng,Weilong		2019年6月27日				init method
+	 *-----------------------------------------------------
+	 * @return String[]
+	 */
+	public String[] enrichConnect(int userId) {
 		String[] connent = new String[10] ;
-		String info = "激活:<a href=\"http://"+PropertyUtil.getProperty("app.url")+"/skybbs/user/enableUser.do?userId="+userId+"\">点击激活账户</a>";
-        info = info + "<br/>如果激活未成功，请把地址复制到浏览器进行手动请求以进行激活:"+"http://"+PropertyUtil.getProperty("app.url")+"/skybbs/user/enableUser.do?userId="+userId;
+		String info = "激活:<a href=\""+PropertyUtil.getProperty("app.url")+userId+"\">点击激活账户</a>";
+        info = info + "<br/>如果激活未成功，请把地址复制到浏览器进行手动请求以进行激活:"+PropertyUtil.getProperty("app.url")+userId;
+        logger.info("email info = "+info);
 		connent[0]=PropertyUtil.getProperty("mail.title");
 		connent[1]=info;
 		connent[2]=PropertyUtil.getProperty("mail.qq");
@@ -128,5 +138,21 @@ public class UserController extends BaseController<User>{
 		model.addAttribute("user", user);
 		return "message";
 		
+	}
+	
+	/**
+	 * 
+	 *@Description:
+	 *-----------------------------------------------------
+	 *Author			date				comments
+	 *Zeng,Weilong		2019年6月27日			go to update user info page
+	 *-----------------------------------------------------
+	 * @return String
+	 */
+	@RequestMapping("/updateInfo")
+	public String updateInfo(int userId,Model model){
+		User user = userService.selectByKey(userId);
+		model.addAttribute("user", user);
+		return "user/updateUserInfo";
 	}
 }
