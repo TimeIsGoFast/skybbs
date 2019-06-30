@@ -19,4 +19,34 @@ public interface ReplyMapper extends Mapper<Reply> {
 	 * @return List<Reply> 
 	 */
 	List<Reply> getReplysByCommentIds(@Param("commentIds")List<Integer> commentIds);
+
+	/**  
+	 *@Description:
+	 *-----------------------------------------------------
+	 *Author			date				comments
+	 *Zeng,Weilong		2019年6月29日				init method
+	 *-----------------------------------------------------
+	 * @return void 
+	 */
+	void updateToName(@Param("uid")String uid, @Param("name")String name);
+
+	/**  
+	 *@Description:
+	 *-----------------------------------------------------
+	 *Author			date				comments
+	 *Zeng,Weilong		2019年6月29日				init method
+	 *-----------------------------------------------------
+	 * @return void 
+	 */
+	void updateFromName(@Param("uid")String uid, @Param("name")String name);
+
+	/**  
+	 *@Description:
+	 *-----------------------------------------------------
+	 *Author			date				comments
+	 *Zeng,Weilong		2019年6月30日				init method
+	 *-----------------------------------------------------
+	 * @return void 
+	 */
+	void deleteByCommentId(@Param("Id")Integer id);
 }

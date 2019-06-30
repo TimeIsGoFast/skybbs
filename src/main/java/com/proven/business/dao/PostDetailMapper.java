@@ -17,4 +17,24 @@ public interface PostDetailMapper extends Mapper<PostDetail> {
 	* @date 2019年6月18日
 	*/
 	PostDetail selectByPostId(@Param(value="postId")int postId);
+
+	/**  
+	 *@Description:
+	 *-----------------------------------------------------
+	 *Author			date				comments
+	 *Zeng,Weilong		2019年6月29日				init method
+	 *-----------------------------------------------------
+	 * @return void 
+	 */
+	void updateName(@Param(value="uid")String uid, @Param(value="name")String name);
+
+	/**  
+	 *@Description:
+	 *-----------------------------------------------------
+	 *Author			date				comments
+	 *Zeng,Weilong		2019年6月30日				init method
+	 *-----------------------------------------------------
+	 * @return void 
+	 */
+	void deleteBytitleId(@Param(value="titleId")int titleId);
 }

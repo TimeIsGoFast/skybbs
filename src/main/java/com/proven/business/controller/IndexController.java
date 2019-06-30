@@ -34,7 +34,9 @@ import com.proven.business.service.ReplyService;
 import com.proven.business.service.ThemeService;
 import com.proven.parambean.CommentParam;
 import com.proven.system.model.User;
+import com.proven.system.service.UserService;
 import com.proven.utils.FileUtils;
+import com.proven.utils.PropertyUtil;
 import com.proven.utils.SpringUtil;
 
 import tk.mybatis.mapper.util.StringUtil;
@@ -63,6 +65,9 @@ public class IndexController {
 	@Autowired
 	private ReplyService replyService;
 	
+	@Autowired
+	private UserService userService;
+	
 	@RequestMapping("/getThemeData")
 	public List<Theme> getThemeData(){
 		return themeService.selectAll();
@@ -90,7 +95,8 @@ public class IndexController {
 	 *@Description:get deatil page
 	 *-----------------------------------------------------
 	 *Author			date				comments
-	 *Zeng,Weilong		2019年6月21日				init method
+	 *Zeng,Weilong		2019年6月28日			show the post detail,forward to detail page 
+	 *Zeng,Weilong		2019年6月30日			add post detail logo image 
 	 *-----------------------------------------------------
 	 * @return String
 	 */
@@ -123,9 +129,14 @@ public class IndexController {
  			model.addAttribute("nextId", nextId);
  		}
  		
+ 		//get logo url for show the author logo
+ 		User postUser = userService.getUserByUid(postTitle.getCreateBy());
+ 		String logoUrl = postUser.getLogoUrl();
+ 		
 		model.addAttribute("postTitle", postTitle);
 		model.addAttribute("postDetail", postDetail);
 		model.addAttribute("user", user);
+		model.addAttribute("logoUrl", logoUrl);
 		return "detail/detail";
 	}
 	
@@ -322,8 +333,21 @@ public class IndexController {
 	 * @return String
 	 */
 	@RequestMapping("/message")
-	public String message(){
+	public String message(String type,Model model){
+		String message = "";
+		if("access".equals(type)){
+			message = PropertyUtil.getProperty("access.success");
+		}else if("register".equals(type)){
+			message = PropertyUtil.getProperty("register.success");
+		}
+		model.addAttribute("message", message);
 		return "message";
+	}
+	
+	
+	@RequestMapping("/linkAdmin")
+	public String linkAdmin(){
+		return "user/linkAdmin";
 	}
 	
 }

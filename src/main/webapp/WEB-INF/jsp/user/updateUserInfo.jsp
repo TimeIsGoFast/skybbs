@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -12,7 +13,7 @@
 </head>
 <body>
 
-<form action="${pageContext.request.contextPath }/anon/perfectInfo/addInfo.do"  method="post" enctype="multipart/form-data" onsubmit="return toVaild()">
+<form action="${pageContext.request.contextPath }/user/updateUser.do"  method="post" enctype="multipart/form-data" onsubmit="return toVaild()">
 <div class="content">
 
     <div class="input">
@@ -20,11 +21,11 @@
         <p class="headerP">完善信息&nbsp;&nbsp;<b id="message" style="font-size:1em;"></b></p>
        
     </div>
-   <input type="hidden" id="uid" name="uid" value="${user.id}"> 
+   <input type="hidden" id="uid" name="id" value="${user.id}"> 
     <div class="input">
         <span>昵&nbsp;&nbsp;&nbsp;&nbsp;称</span>
         <div class="div1">
-            <input type="text" name="nickname" placeholder="" id="nickname" value="${user.name}">
+            <input type="text" name="name" placeholder="" id="nickname" value="${user.name}">
         </div>
     </div>
     <div class="input">
@@ -36,13 +37,13 @@
     <div class="input">
         <span>公&nbsp;&nbsp;&nbsp;&nbsp;司</span>
         <div class="div1">
-            <input type="text" name="mail" placeholder="" id="mail" value="${user.company}">
+            <input type="text" name="company" placeholder="" id="mail" value="${user.company}">
         </div>
     </div>
     <div class="input">
         <span>生&nbsp;&nbsp;&nbsp;&nbsp;日</span>
         <div class="div1">
-            <input type="date" name="birth" placeholder="" id="birth" value="${user.birth}">
+            <input type="date" name="birth" placeholder="" id="birth" value="${birth}">
         </div>
     </div>
     <div class="control-group js_uploadBox">
@@ -55,7 +56,14 @@
     <div class="input">
         <span>预&nbsp;&nbsp;&nbsp;&nbsp;览</span>
         <div class="div3">
-            <div class="js_showBox "><img id="_img" class="js_logoBox" src="${pageContext.request.contextPath }/static/images/logo3.png" width="100px" ></div>
+	      	 <c:if test="${ !empty user.logoUrl}">
+	      	  <div class="js_showBox "><img id="_img" class="js_logoBox" src="${user.logoUrl}" width="100px" ></div>
+      
+	      	 </c:if>
+	      	  <c:if test="${ empty user.logoUrl}">
+	      	  <div class="js_showBox "><img id="_img" class="js_logoBox" src="${pageContext.request.contextPath }/static/images/logo3.png" width="100px" ></div>
+	      	 </c:if>
+
         </div>
     </div>
        </div>  
@@ -83,13 +91,14 @@ $(".js_upFile").uploadView({
 
 //页面刷新执行
 $(document).ready(function(){
-	//getinfo();
+	getinfo();
 	
 });
 //利用ajax的到uid和昵称
 function getinfo(){
 	var uid='${uid}';
-	$.ajax({
+	$("#birth").val();
+/* 	$.ajax({
 		type:'post',
 		url:'${pageContext.request.contextPath }/anon/perfectInfo/getInfoByuid.do',
 		data:{'uid':uid},
@@ -107,13 +116,25 @@ function getinfo(){
 			$("#message").text('页面初始化失败！');
 		}
 		
-	});
+	}); */
 	
 }
 
 //validate form before submit
 function toVaild(){
-	alert("aaa");
+	var name = $("#nickname").val();
+	var tel = $("#tel").val();
+	var telReg=/^[1][3,4,5,7,8][0-9]{9}$/;
+	if(name.length==0){
+		$("#message").text('昵称不能为空！');
+		return false;
+	}
+
+
+	if(!telReg.test(tel)){
+		$("#message").text("手机号码格式不正确！");
+		return false;
+	}
 }
 
 </script>

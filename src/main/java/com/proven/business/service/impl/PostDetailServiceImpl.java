@@ -37,5 +37,23 @@ public class PostDetailServiceImpl extends BaseServiceImpl<PostDetail> implement
 	public PostDetail selectByPostId(int postId) {
 		return postDetailMapper.selectByPostId(postId);
 	}
+	/**
+	* <p>Title: updateName</p>  
+	* <p>Description: </p>   
+	*/  
+	@Override
+	public void updateName(String uid, String name) {
+		postDetailMapper.updateName(uid,name);
+		
+	}
+	/**
+	* <p>Title: deleteBytitleId</p>  
+	* <p>Description: </p>   
+	*/  
+	@Override
+	public void deleteBytitleId(int titleId) {
+		postDetailMapper.deleteBytitleId(titleId);
+		
+	}
 
 }

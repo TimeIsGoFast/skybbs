@@ -156,7 +156,7 @@
 		}
 		
 		
-		
+		//register js method
 		$.ajax({
 			type:'post',
 			url:'${pageContext.request.contextPath}/user/register.do',
@@ -165,10 +165,7 @@
 			success:function(result){
 				console.log(result);
 				if (result.success) {
-					$("#username").val(uid);
-					$("#password").val(pwd);
-					_login();
-					$(".error_message").text("注册成功！请查看邮箱来激活账号！");
+					window.location.href="${pageContext.request.contextPath}/index/message.do?type=register";
 				} else {			
 					$(".error_message").text(result.msg);
 				}

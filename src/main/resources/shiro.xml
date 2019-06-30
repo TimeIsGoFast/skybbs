@@ -48,6 +48,7 @@
 				/login** = anon
 				/user/register** = anon
 				/user/enableUser** = anon
+				/user/updateUser** = anon
 				/logout** = anon
 				/index** = anon
 				/** = authc,urlPerms

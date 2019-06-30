@@ -30,4 +30,16 @@
    </foreach>
   
   </select>
+  
+  <update id="updateToName">
+  update t_t_reply set to_name=#{name} where to_uid=#{uid}
+  </update>
+  
+  <update id="updateFromName">
+  update t_t_reply set from_name=#{name} where from_uid=#{uid}
+  </update>
+  
+  <delete id="deleteByCommentId">
+  delete  from t_t_reply where comment_id=#{Id}
+  </delete>
 </mapper>

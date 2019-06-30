@@ -29,7 +29,7 @@ body{
   <div class="panel-default">
    <h1>Hello ${user.name}!</h1>
    <p>${message}</p>
-   <p><a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath }/renderLogin.do" role="button">点我登录</a></p>
+   <p><a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath }/index.do" role="button">返回主页</a></p>
    </div>
 </div>
 

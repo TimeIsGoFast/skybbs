@@ -68,7 +68,27 @@ public class PostTitleServiceImpl extends BaseServiceImpl<PostTitle> implements 
 		logger.info("id= "+id+" renturn id= "+postTitle.getId());
 		return postTitle.getId();
 	}
-
+	/**
+	* <p>Title: updateName</p>  
+	* <p>Description: </p>   
+	*/  
+	@Override
+	public void updateName(String uid,String name) {
+		postTitleMapper.updateName(uid,name);
+		
+	}
+	/**
+	* <p>Title: getAdminTitleData</p>  
+	* <p>Description: </p>   
+	*/  
+	@Override
+	public PageInfo<PostTitle> getAdminTitleData(int page, int row, String search) {
+		PageHelper.startPage(page, row);
+		List<PostTitle> list = postTitleMapper.getAdminTitleData(search);
+		PageInfo<PostTitle> info = new PageInfo<>(list);
+		return info;
+	}
+	
 	
 
 }

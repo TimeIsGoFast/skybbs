@@ -8,20 +8,34 @@
  */
 package com.proven.system.controller;
 
+import java.io.File;
+import java.text.ParseException;
 import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.proven.base.controller.BaseController;
+import com.proven.base.vo.FileVo;
 import com.proven.base.vo.Result;
+import com.proven.business.service.CommentService;
+import com.proven.business.service.PostDetailService;
+import com.proven.business.service.PostTitleService;
+import com.proven.business.service.ReplyService;
 import com.proven.parambean.UserParam;
 import com.proven.system.model.User;
 import com.proven.system.service.UserService;
+import com.proven.utils.DateFormatUtil;
+import com.proven.utils.FileUtils;
 import com.proven.utils.MailUtil;
 import com.proven.utils.PropertyUtil;
 
@@ -39,10 +53,23 @@ import com.proven.utils.PropertyUtil;
 @Controller
 @RequestMapping("/user")
 public class UserController extends BaseController<User>{
-	@Autowired
-	private UserService userService;
+	
 	
     private static final Logger logger  = Logger.getLogger(UserController.class);
+    @Autowired
+	private UserService userService;
+    
+    @Autowired
+	private PostTitleService titleService;
+    
+    @Autowired
+    private PostDetailService deatilService;
+    
+    @Autowired
+    private CommentService commentService;
+    
+    @Autowired
+    private ReplyService replyService;
     
     /**
      * 
@@ -72,6 +99,7 @@ public class UserController extends BaseController<User>{
 				user.setPassword(param.getPassword());
 				user.setTel(param.getTel());
 				user.setUid(param.getUid());
+				user.setLogoUrl(PropertyUtil.getProperty("default.logo"));
 				//save user to user table
 				userService.save(user);
 				//save user_role map to user_role map,this is for permission,if did not do this operate, user will can't access any url
@@ -136,6 +164,8 @@ public class UserController extends BaseController<User>{
 		user.setEnabled("Y");
 		userService.update(user);
 		model.addAttribute("user", user);
+		String message = PropertyUtil.getProperty("access.success");
+		model.addAttribute("message", message);
 		return "message";
 		
 	}
@@ -153,6 +183,69 @@ public class UserController extends BaseController<User>{
 	public String updateInfo(int userId,Model model){
 		User user = userService.selectByKey(userId);
 		model.addAttribute("user", user);
+		if(!StringUtils.isEmpty(user.getBirth())){
+			String birth = DateFormatUtil.toDateoString(user.getBirth());
+			model.addAttribute("birth", birth);
+		}
+		
 		return "user/updateUserInfo";
 	}
+	
+	/**
+	 * 
+	 *@Description:
+	 *-----------------------------------------------------
+	 *Author			date				comments
+	 *Zeng,Weilong		2019年6月29日			update user info
+	 *-----------------------------------------------------
+	 * @return String
+	 */
+	@RequestMapping("/updateUser")
+	public String updateUser(UserParam user,@RequestParam MultipartFile imgfile,HttpServletRequest request,Model model){
+		
+		User newUser = userService.selectByKey(user.getId());
+		String path = PropertyUtil.getProperty("upload.image.path")+"user"+File.separator;
+       	FileVo fileVo= FileUtils.uploadFile(imgfile, path);
+       	//enrich newUser  	
+       	try {
+			newUser.setBirth(DateFormatUtil.parseDate(user.getBirth()));
+		} catch (ParseException e) {
+			logger.info(e);
+		}
+       	newUser.setCompany(user.getCompany());
+       	newUser.setId(user.getId());
+       	newUser.setTel(user.getTel());
+       	//if filepath is empty,then save null to ligoUrl
+       	if(!StringUtils.isEmpty(fileVo.getFilePath())){
+       		newUser.setLogoUrl(PropertyUtil.getProperty("app.image.url")+File.separator+"user"+fileVo.getFilePath());
+       	} 	
+       	
+       	//if new user name is same with old name,then update title and detail
+       	logger.info("strat update other infomation");
+       	if(!newUser.getName().equals(user.getName())){
+       		titleService.updateName(newUser.getUid(),user.getName());
+       	    deatilService.updateName(newUser.getUid(),user.getName());
+       	    commentService.updateName(newUser.getUid(),user.getName());
+       	    replyService.updateName(newUser.getUid(),user.getName());
+       	    
+       	}
+       	newUser.setName(user.getName());
+       	String message="";
+		int info = userService.update(newUser);
+		if(info==1){
+		   message = "完善个人信息成功！";	
+			
+		}else if(info==0){
+			message="完善个人信息失败";
+		
+		}else{
+			message="出现未知错误";
+			
+		}
+		model.addAttribute("user", newUser);
+		model.addAttribute("message", message);
+		return "message2";
+	}
+
+	
 }

@@ -8,7 +8,7 @@ package com.proven.business.dtos;
 
 import java.util.List;
 
-import com.proven.business.model.Comment;
+import com.proven.business.model.CommentVo;
 import com.proven.business.model.Reply;
 
 /**  
@@ -18,12 +18,12 @@ import com.proven.business.model.Reply;
 */
 public class CommentDto{
 
-	private Comment comment;
+	private CommentVo comment;
 	private List<Reply> replys;
-	public Comment getComment() {
+	public CommentVo getComment() {
 		return comment;
 	}
-	public void setComment(Comment comment) {
+	public void setComment(CommentVo comment) {
 		this.comment = comment;
 	}
 	public List<Reply> getReplys() {
@@ -32,6 +32,7 @@ public class CommentDto{
 	public void setReplys(List<Reply> replys) {
 		this.replys = replys;
 	}
+
 	
 	
 }

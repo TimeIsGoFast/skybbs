@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>消息</title>
+	<title>管理员联系方式</title>
 	<link rel="Shortcut Icon" href="${pageContext.request.contextPath }/static/images/title.jpg" type="image/x-icon">
  	<link href="${pageContext.request.contextPath }/static/assets/css/bootstrap.css" rel="stylesheet">
  	<script src="${pageContext.request.contextPath }/static/js/jquery-2.1.1.min.js"></script>
@@ -27,9 +27,10 @@ body{
 <body>
 <div class="jumbotron">
   <div class="panel-default">
-   <h1>Hello ${user.name}!</h1>
-   <p>${message}</p>
-   <p><a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath }/renderLogin.do" role="button">点我登录</a></p>
+   <h2>欢迎来到skybbs!</h2>
+   <p>如果你有什么建议或者有任何疑问，你可以通过以下方式来联系管理员，以下是联系方式：</p>
+   <p>邮箱：1501122784@qq.com</p>
+   <p>qq群：1501122784</p>
    </div>
 </div>
 
