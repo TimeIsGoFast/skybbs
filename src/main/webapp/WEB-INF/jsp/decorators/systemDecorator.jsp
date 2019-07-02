@@ -82,7 +82,7 @@
                <sitemesh:write property='body'/>						
 		</div>
             <div id="page-inner"> 
-				 <footer><p style="text-align:center">Copyright &copy; 2017.Company name weilongzeng rights reserved.</p></footer>
+				 <footer><p style="text-align:center">Copyright &copy; 2019.Company name weilongzeng rights reserved.</p></footer>
 			</div>
          </div>
          <!-- /. PAGE WRAPPER  -->

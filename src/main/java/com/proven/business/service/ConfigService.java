@@ -26,6 +26,6 @@ public interface ConfigService extends BaseService<Config>{
 	* Author:Zeng,weilong
 	* @date 2019年6月15日
 	*/
-	List<Config> getConfigListByTypeId(int i);
+	List<Config> getConfigListByGroupId(int i);
 
 }

@@ -6,17 +6,22 @@
 */ 
 package com.proven.business.controller;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.proven.base.vo.Result;
+import com.proven.business.model.Config;
 import com.proven.business.model.PostTitle;
 import com.proven.business.model.Theme;
 import com.proven.business.service.CommentService;
+import com.proven.business.service.ConfigService;
 import com.proven.business.service.PostDetailService;
 import com.proven.business.service.PostTitleService;
 import com.proven.business.service.ReplyService;
@@ -46,6 +51,9 @@ public class AdminController {
 	
 	@Autowired
 	private ReplyService replyService;
+	
+	@Autowired
+	private ConfigService configService;
 	/**
 	 * 
 	 *@Description:
@@ -80,12 +88,17 @@ public class AdminController {
 	 *-----------------------------------------------------
 	 *Author			date				comments
 	 *Zeng,Weilong		2019年6月30日			forward to admin post page
+	 *Zeng,Weilong		2019年7月01日			add themes and types to page
 	 *-----------------------------------------------------
 	 * @return String
 	 */
 	@RequestMapping("/post")
-	public String post(){
-		
+	public String post(Model model){
+		//get some data for theme and type
+		List<Theme> themes = themeService.selectAll();
+		List<Config> types = configService.getConfigListByGroupId(1);		
+		model.addAttribute("themes", themes);
+		model.addAttribute("types", types);
 		return "admin/post/post";
 	}
 	
@@ -187,9 +200,59 @@ public class AdminController {
 		return result;
 	}
 	
+	/**
+	 * 
+	 *@Description:
+	 *-----------------------------------------------------
+	 *Author			date				comments
+	 *Zeng,Weilong		2019年7月1日			forward to comment page
+	 *-----------------------------------------------------
+	 * @return String
+	 */
 	@RequestMapping("/comment")
 	public String comment(){
 		return "admin/post/comment";
 	}
 
+	/**
+	 * 
+	 *@Description:
+	 *-----------------------------------------------------
+	 *Author			date				comments
+	 *Zeng,Weilong		2019年7月1日			update post
+	 *-----------------------------------------------------
+	 * @return Result
+	 */
+	@RequestMapping("/updateTitle")
+	@ResponseBody
+	public Result updateTitle(PostTitle post){
+		Result result = new Result("success",true);
+		
+		try {
+			PostTitle oldPost = postTitleService.selectByKey(post.getId());			
+			oldPost.setTypeId(post.getTypeId());
+			if(post.getThemeId()!=oldPost.getThemeId()){
+				//update theme data
+				Theme theme1 = themeService.selectByKey(oldPost.getThemeId());
+				theme1.setPostNumber(theme1.getPostNumber()-1);
+				
+				Theme theme2 = themeService.selectByKey(post.getThemeId());
+				theme2.setPostNumber(theme2.getPostNumber()+1);
+				themeService.update(theme1);
+				themeService.update(theme2);
+				
+				oldPost.setThemeId(post.getThemeId());
+			}
+			
+			
+			postTitleService.update(oldPost);
+		} catch (Exception e) {
+			logger.error(e);
+			result.setMsg("failed");
+			result.setSuccess(false);
+		}
+		
+		return result;
+	}
+	
 }

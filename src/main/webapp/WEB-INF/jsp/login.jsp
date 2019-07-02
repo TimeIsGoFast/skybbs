@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath }/static/font-awesome-4.7.0/css/font-awesome.min.css">
     
 <script type="text/javascript">
-	
 </script>
 </head>
 <body>
@@ -39,6 +38,10 @@
 
     </form>
     <input type="button" value="登录" class="submit1" onclick="login()">
+    <div class="pwdBtn">
+    <a href="${pageContext.request.contextPath}/user/resetPwdPage.do" class="resetPwdBtn">重置密码</a>
+    <a href="${pageContext.request.contextPath}/user/getBackPwdPage.do" class="backPwdBth">密码找回</a>
+    </div>
 </div>
 <div class="_register" style="display: none" id="choseRegister">
     <form id="register_form" method="post">

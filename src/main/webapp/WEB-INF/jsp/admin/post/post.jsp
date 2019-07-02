@@ -24,6 +24,8 @@
                          <thead>
                              <tr>
                                  <th>id</th>
+                                 <th>themeId</th>
+                                 <th>typeId</th>
                                  <th>标题</th>
                                  <th>作者</th>
                                  <th>发表时间</th>
@@ -49,11 +51,37 @@
                 <h4 class="modal-title" id="myModalLabel">帖子</h4>
             </div>
             <div class="modal-body">
-            
+            	<form class="form-horizontal">
+            	  <input type="hidden" id="post_id" value="">
+				  <div class="form-group">
+				    <label for="inputEmail3" class="col-sm-2 control-label">选择主题</label>
+				    <div class="col-sm-10">
+				          <select class="form-control" id="selectTheme">
+							  <c:forEach items="${themes}" var="Theme">
+							  	<option value="${Theme.id}">${Theme.themeName }</option>
+							  </c:forEach>
+							</select>
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label for="inputPassword3" class="col-sm-2 control-label">选择类型</label>
+				    <div class="col-sm-10">
+				       
+						<c:forEach items="${types}" var="Type">
+							  <label class="radio-inline" id="typeIds">
+								  <input type="radio" name="typeRadioOptions" id="typeRadio${Type.typeId}" value="${Type.typeId}">${Type.itemValue }
+							  </label>
+						</c:forEach>
+						
+				    </div>
+				  </div>
+
+				</form>
+        
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary">提交更改</button>
+                <button type="button" class="btn btn-primary" id="editPostBtn">提交</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->

@@ -101,7 +101,7 @@ public class BlogController {
 		Theme theme = themeService.selectByKey(Integer.parseInt(param.getThemeId()));
 		theme.setPostNumber(theme.getPostNumber()+1);
 		themeService.update(theme);
-		List<Config> configList = configService.getConfigListByTypeId(1);
+		List<Config> configList = configService.getConfigListByGroupId(1);
 		List<Theme> themeList = themeService.selectAll();
 		model.addAttribute("postTypes", configList);
 		model.addAttribute("themes", themeList);

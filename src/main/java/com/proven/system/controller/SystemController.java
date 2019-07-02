@@ -119,7 +119,7 @@ public class SystemController {
 			SpringUtil.setSession(Constans.CURRENT_USER, user);
 			model.addAttribute("user",user);
 		}
-		List<Config> configList = configService.getConfigListByTypeId(1);
+		List<Config> configList = configService.getConfigListByGroupId(1);
 		List<Theme> themeList = themeService.selectAll();
 		model.addAttribute("postTypes", configList);
 		model.addAttribute("themes", themeList);

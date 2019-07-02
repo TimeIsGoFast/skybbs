@@ -248,4 +248,32 @@ public class UserController extends BaseController<User>{
 	}
 
 	
+	/**
+	 * 
+	 *@Description:
+	 *-----------------------------------------------------
+	 *Author			date				comments
+	 *Zeng,Weilong		2019年7月2日			get back password page
+	 *-----------------------------------------------------
+	 * @return String
+	 */
+	@RequestMapping("/getBackPwdPage")
+	public String getBackPwdPage(){
+		return "user/passwordBack";
+	}
+	
+	/**
+	 * 
+	 *@Description:
+	 *-----------------------------------------------------
+	 *Author			date				comments
+	 *Zeng,Weilong		2019年7月2日			get reset password page
+	 *-----------------------------------------------------
+	 * @return String
+	 */
+	@RequestMapping("/resetPwdPage")
+	public String resetPwdPage(){
+		return "user/restPwd";
+	}
+	
 }
