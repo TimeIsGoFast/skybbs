@@ -24,43 +24,44 @@
 </div>
 <p class="error_message"></p>
 <div class="_login"  id="choseLogin">
-    <form id="fm" method="post">
+	<div class="backPwd">
         <div class="div1">
-            <input type="text" name="username" id="username" placeholder="账户">
+            <input type="text" name="uid" id="uid" placeholder="账户">
         </div>
-    </form>
-    <input type="button" value="点击找回" class="submit1" onclick="login()">
+         <div class="div1">
+            <input type="text" name="confirm" id="verifyCode" placeholder="验证码" > <button class="sendCodeBtn" onclick="sendCode()">发送验证码</button>
+        </div>
+    </div>
+    <input type="button" value="点击找回" class="submit1" onclick="changeUserPwd()">
+    
 </div>
 
 
 </body>
 <script src="${pageContext.request.contextPath}/static/js/jquery-2.1.1.min.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/static/jquery-easyui-1.4.4/jquery.easyui.min.js"></script>
+
 <script>
-    //登录选择
-    function _login(){
-    	$(".error_message").text("");
-          $("#choseLogin").show();
-          $("#choseRegister").hide();
-          $("#nav_login").css("color","#eb283e");
-          $("#nav_register").css("color","#666");
-    }
+   
    
 	
-	//注册
-	function register_button(){
-			
+	//send code
+	function sendCode(){
+		
+		var uid = $("#uid").val();
+		if(uid.length==0){
+			$(".error_message").text("账户不能为空！");
+		}
+		
 		//register js method
 		$.ajax({
 			type:'post',
-			url:'${pageContext.request.contextPath}/user/register.do',
-			data:$("#register_form").serialize(),
+			url:'${pageContext.request.contextPath}/user/sendVerifyCode.do',
+			data:{'uid':uid},
 			dataType:'json',
 			success:function(result){
 				console.log(result);
 				if (result.success) {
-					window.location.href="${pageContext.request.contextPath}/index/message.do?type=register";
+					$(".error_message").text("已发送验证码到你的邮箱");
 				} else {			
 					$(".error_message").text(result.msg);
 				}
@@ -73,6 +74,45 @@
 					
 		});
 		
+		
+	}
+	
+	//change user password
+	function changeUserPwd(){
+		var uid = $("#uid").val();
+		if(uid.length==0){
+			$(".error_message").text("账户不能为空！");
+		}
+		
+		var verifyCode = $("#verifyCode").val();
+		if(verifyCode.length==0){
+			$(".error_message").text("验证码不能为空！");
+		}
+		
+		$.ajax({
+			type:'post',
+			url:'${pageContext.request.contextPath}/user/changeUserPwd.do',
+			data:{'uid':uid,'code':verifyCode},
+			dataType:'json',
+			success:function(result){
+				console.log(result);
+				if (result.success) {
+					$(".error_message").text("已发送新密码到你邮箱，请查看！");
+					setTimeout(function(){
+						window.location.href="${pageContext.request.contextPath}/renderLogin.do";
+					},5000);
+
+				} else {			
+					$(".error_message").text(result.msg);
+				}
+				
+			},
+			error:function(){
+				$(".error_message").text("出现未知错误！");
+			}
+			
+					
+		});
 		
 	}
 

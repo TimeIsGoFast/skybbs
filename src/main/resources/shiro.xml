@@ -46,7 +46,7 @@
 				/index/** =anon
 				/renderLogin**=anon
 				/login** = anon
-				/user** = anon
+				/user/** = anon
 				/logout** = anon
 				/index** = anon
 				/** = authc,urlPerms

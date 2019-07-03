@@ -34,6 +34,7 @@ import com.proven.business.service.ReplyService;
 import com.proven.parambean.UserParam;
 import com.proven.system.model.User;
 import com.proven.system.service.UserService;
+import com.proven.utils.CommonUtil;
 import com.proven.utils.DateFormatUtil;
 import com.proven.utils.FileUtils;
 import com.proven.utils.MailUtil;
@@ -84,15 +85,15 @@ public class UserController extends BaseController<User>{
 	@ResponseBody
 	public Result register(UserParam param){
 		Result result = new Result("success",true);
-		logger.info("username="+param.getEmail()+" ,fullname"+param.getNickName()+" ,telephone"+param.getTel()+" ,password"+param.getPassword());
+		logger.info("uid="+param.getUid()+"email="+param.getEmail()+" ,fullname"+param.getNickName()+" ,telephone"+param.getTel()+" ,password"+param.getPassword());
 		//judge user if exist in database
-		User dbuser = userService.getUserByUid(param.getEmail());
+		User dbuser = userService.getUserByUid(param.getUid());
 		if(dbuser==null){
 			try {
 				//register
 				User user = new User();
 				user.setMail(param.getEmail());
-				user.setCreateBy(param.getEmail());
+				user.setCreateBy(param.getUid());
 				user.setName(param.getNickName());
 				user.setCreateDate(new Date());
 				user.setEnabled("N");
@@ -141,6 +142,16 @@ public class UserController extends BaseController<User>{
 		String[] connent = new String[10] ;
 		String info = "激活:<a href=\""+PropertyUtil.getProperty("app.url")+userId+"\">点击激活账户</a>";
         info = info + "<br/>如果激活未成功，请把地址复制到浏览器进行手动请求以进行激活:"+PropertyUtil.getProperty("app.url")+userId;
+        logger.info("email info = "+info);
+		connent[0]=PropertyUtil.getProperty("mail.title");
+		connent[1]=info;
+		connent[2]=PropertyUtil.getProperty("mail.qq");
+		connent[3]=PropertyUtil.getProperty("mail.security.code");
+		return connent;
+	}
+	
+	public String[] enrichEmailInfo(String info){
+		String[] connent = new String[10] ;
         logger.info("email info = "+info);
 		connent[0]=PropertyUtil.getProperty("mail.title");
 		connent[1]=info;
@@ -276,4 +287,132 @@ public class UserController extends BaseController<User>{
 		return "user/restPwd";
 	}
 	
+	/**
+	 * 
+	 *@Description:
+	 *-----------------------------------------------------
+	 *Author			date				comments
+	 *Zeng,Weilong		2019年7月3日			resetPwd
+	 *-----------------------------------------------------
+	 * @return String
+	 */
+	@RequestMapping("/resetPwd")
+	@ResponseBody
+	public Result resetPwd(String uid,String oldPwd,String newPwd){
+		Result result = new Result("success",true);
+		
+		try {
+			User user = userService.getUserByUid(uid);
+			
+			if(user==null){
+				result.setMsg("该账户不存在");
+				result.setSuccess(false);
+				return result;
+			}
+			
+			if(!user.getPassword().equals(oldPwd)){
+				result.setMsg("用户名原密码错误");
+				result.setSuccess(false);
+				return result;
+			}
+			
+			user.setPassword(newPwd);
+			
+			userService.update(user);
+			
+			
+		} catch (Exception e) {
+			logger.error(e);
+			result.setMsg("failed");
+			result.setSuccess(false);
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 
+	 *@Description:
+	 *-----------------------------------------------------
+	 *Author			date				comments
+	 *Zeng,Weilong		2019年7月3日			send verifyCode
+	 *-----------------------------------------------------
+	 * @return Result
+	 */
+	@RequestMapping("/sendVerifyCode")
+	@ResponseBody
+	public Result sendVerifyCode(String uid){
+		Result result = new Result("success",true);
+		
+		try {
+			User user = userService.getUserByUid(uid);
+			
+			if(user==null){
+				result.setMsg("该账户不存在");
+				result.setSuccess(false);
+				return result;
+			}
+			
+			String code = CommonUtil.getVerifyCode(4);
+			user.setSalt(code);
+			userService.update(user);
+			
+			String info = "尊敬的用户，你的验证码为： "+code;
+			String[] connect = enrichEmailInfo(info);
+			MailUtil.sendEmail(PropertyUtil.getProperty("mail.from.user"), user.getMail(), connect);
+			
+		} catch (Exception e) {
+			logger.error(e);
+			result.setMsg("failed");
+			result.setSuccess(false);
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 
+	 *@Description:
+	 *-----------------------------------------------------
+	 *Author			date				comments
+	 *Zeng,Weilong		2019年7月3日			changeUserPwd
+	 *-----------------------------------------------------
+	 * @return Result
+	 */
+	@RequestMapping("/changeUserPwd")
+	@ResponseBody
+	public Result changeUserPwd(String uid,String code){
+		Result result = new Result("success",true);
+		
+		try {
+			User user = userService.getUserByUid(uid);
+			if(user==null){
+				result.setMsg("该账户不存在");
+				result.setSuccess(false);
+				return result;
+			}
+			
+			if(!code.equals(user.getSalt())){
+				result.setMsg("验证码不正确");
+				result.setSuccess(false);
+				return result;
+			}
+			
+			String newPwd = CommonUtil.getRandomPwd(6);
+			user.setPassword(newPwd);
+			userService.update(user);
+			
+			String info = "尊敬的用户，你重置之后的密码为： "+newPwd+" 请尽快修改密码！";
+			String[] connect = enrichEmailInfo(info);
+			MailUtil.sendEmail(PropertyUtil.getProperty("mail.from.user"), user.getMail(), connect);
+			
+			
+		} catch (Exception e) {
+			logger.error(e);
+			result.setMsg("failed");
+			result.setSuccess(false);
+		}
+		
+		return result;
+	}
 }

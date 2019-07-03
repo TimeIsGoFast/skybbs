@@ -49,9 +49,14 @@
 		var newPwd = $("#newPwd").val();
 		var confirmPwd = $("#confirmPwd").val();
 		var uid=$("#uid").val();
-		
+		var reg = /^[0-9A-Za-z]{6,}$/;
 		if(newPwd!=confirmPwd){
 			$(".error_message").text("两次密码应该相同!");
+			return;
+		}
+		
+		if(!reg.test(newPwd)){
+			$(".error_message").text("密码长度不小于六位！");
 			return;
 		}
 		
@@ -59,7 +64,7 @@
 		$.ajax({
 			type:'post',
 			url:'${pageContext.request.contextPath}/user/resetPwd.do',
-			data:$("#register_form").serialize(),
+			data:{'uid':uid,'oldPwd':oldPwd,'newPwd':newPwd},
 			dataType:'json',
 			success:function(result){
 				console.log(result);
