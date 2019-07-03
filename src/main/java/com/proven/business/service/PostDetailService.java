@@ -26,4 +26,24 @@ public interface PostDetailService extends BaseService<PostDetail>{
 	*/
 	PostDetail selectByPostId(int postId);
 
+	/**  
+	 *@Description:
+	 *-----------------------------------------------------
+	 *Author			date				comments
+	 *Zeng,Weilong		2019年6月29日				init method
+	 *-----------------------------------------------------
+	 * @return void 
+	 */
+	void updateName(String uid, String name);
+
+	/**  
+	 *@Description:
+	 *-----------------------------------------------------
+	 *Author			date				comments
+	 *Zeng,Weilong		2019年6月30日				init method
+	 *-----------------------------------------------------
+	 * @return void 
+	 */
+	void deleteBytitleId(int titleId);
+
 }

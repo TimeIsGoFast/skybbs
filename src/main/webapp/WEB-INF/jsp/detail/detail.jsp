@@ -48,7 +48,7 @@
 				 			<p style="text-align:center;">${postTitle.author}</p>
 				 		</div>
 				 		<div class="img">
-				 		  <img src="${pageContext.request.contextPath }/static/images/logo3.png" alt="帅的被人砍">
+				 		  <img src="${logoUrl}" alt="帅的被人砍">
 				 		</div>
 				 		
 				 	</div>

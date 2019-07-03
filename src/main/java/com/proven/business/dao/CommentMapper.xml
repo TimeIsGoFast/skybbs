@@ -21,6 +21,29 @@
     -->
     <result column="comment" property="comment" jdbcType="LONGVARCHAR" />
   </resultMap>
+  
+   <resultMap id="CommentVoResultMap" type="com.proven.business.model.CommentVo" >
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title_id" property="titleId" jdbcType="INTEGER" />
+    <result column="detail_id" property="detailId" jdbcType="INTEGER" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="link_num" property="linkNum" jdbcType="INTEGER" />
+    <result column="tread_num" property="treadNum" jdbcType="INTEGER" />
+    <result column="create_name" property="createName" jdbcType="VARCHAR" />
+    <result column="logo_url" property="logoUrl" jdbcType="VARCHAR" />
+  </resultMap>
+   <resultMap id="ResultVoMapWithBLOBs" type="com.proven.business.model.Comment" extends="CommentVoResultMap" >
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <result column="comment" property="comment" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
   <sql id="Base_Column_List" >
     <!--
       WARNING - @mbggenerated
@@ -34,7 +57,23 @@
     comment
   </sql>
   
-  <select id="getComments" resultMap="BaseResultMap">
-  select * from t_t_comment where title_id=#{titleId} order by create_date desc
+  <select id="getComments" resultMap="CommentVoResultMap">
+  select com.*,users.logo_url from t_t_comment com INNER JOIN t_s_user users on com.create_by=users.uid  where title_id=#{titleId} order by create_date desc
+  </select>
+  
+  <update id="updateName">
+  update t_t_comment SET create_name=#{name} where create_by=#{uid}
+  </update>
+  
+  <delete id="deleteByTitleId">
+  delete from t_t_comment where title_id=#{titleId}
+  </delete>
+  
+  <select id="getAdminTitleData" resultMap="BaseResultMap">
+    select * from t_t_comment where 1=1
+  <if test="search != null and search !=''">
+  		and comment like CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+  </if>
+  order by create_date desc
   </select>
 </mapper>

@@ -29,4 +29,24 @@ public interface PostTitleMapper extends Mapper<PostTitle> {
 	* @date 2019年6月16日
 	*/
 	int insertReturnId(PostTitle postTitle);
+
+	/**  
+	 *@Description:
+	 *-----------------------------------------------------
+	 *Author			date				comments
+	 *Zeng,Weilong		2019年6月29日				init method
+	 *-----------------------------------------------------
+	 * @return void 
+	 */
+	void updateName(@Param(value="uid")String uid,@Param(value="name")String name);
+
+	/**  
+	 *@Description:
+	 *-----------------------------------------------------
+	 *Author			date				comments
+	 *Zeng,Weilong		2019年6月30日				init method
+	 *-----------------------------------------------------
+	 * @return List<PostTitle> 
+	 */
+	List<PostTitle> getAdminTitleData(@Param(value="search")String search);
 }

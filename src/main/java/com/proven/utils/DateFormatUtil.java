@@ -113,9 +113,10 @@ public class DateFormatUtil {
 	}
 	//将string date 转换成Date date
 	public static Date parseDate(String date) throws ParseException {
-		SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
 		return format.parse(date);
 	}
+	
 
 	//通过date 判断是否为当前日期
 	public static boolean isCurrentDay(String date) {

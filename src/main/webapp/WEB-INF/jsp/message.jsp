@@ -27,8 +27,8 @@ body{
 <body>
 <div class="jumbotron">
   <div class="panel-default">
-   <h1>Hello, ${user.name}!</h1>
-   <p>欢迎来到skybbs论坛，你的账户已经被激活，你可以点击按钮来进行登录系统！</p>
+   <h1>Hello ${user.name}!</h1>
+   <p>${message}</p>
    <p><a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath }/renderLogin.do" role="button">点我登录</a></p>
    </div>
 </div>

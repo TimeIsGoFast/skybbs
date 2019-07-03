@@ -25,7 +25,7 @@ function getDetail(){
 						treadNum = value.comment.treadNum;
 					}
 					$('#media-list').append('<li id="media'+value.comment.id+'" class="media"><div class="media-left">'+
-						'<a href="#"><img class="media-object" src="'+path+'/static/images/logo3.png"></a></div>'+
+						'<a href="#"><img class="media-object" src="'+value.comment.logoUrl+'"></a></div>'+
 						'<div class="media-body"><div class="row"><h4 class="media-heading col-md-8">'+value.comment.createName+'</h4>'+
 						'<h5 class="col-md-4" style="text-align:right;">#'+(key+1)+' 发表时间：'+value.comment.createDate+'</h5>'+'</div><p class="list-content">'+value.comment.comment+'</p>'+
 						'<div class="row coment_body_P"><div class="col-md-12">'+

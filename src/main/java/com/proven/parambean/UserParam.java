@@ -13,11 +13,25 @@ package com.proven.parambean;
 */
 public class UserParam {
 	
+	private String uid;
 	private String email;
 	private String nickName;
 	private String tel;
 	private String password;
 	private String comfirmPwd;
+	
+	private int id;
+	private String birth;
+	private String company;
+	private String name;
+	
+	
+	public String getUid() {
+		return uid;
+	}
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
 	public String getEmail() {
 		return email;
 	}
@@ -47,6 +61,30 @@ public class UserParam {
 	}
 	public void setComfirmPwd(String comfirmPwd) {
 		this.comfirmPwd = comfirmPwd;
+	}
+	public String getBirth() {
+		return birth;
+	}
+	public void setBirth(String birth) {
+		this.birth = birth;
+	}
+	public String getCompany() {
+		return company;
+	}
+	public void setCompany(String company) {
+		this.company = company;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	

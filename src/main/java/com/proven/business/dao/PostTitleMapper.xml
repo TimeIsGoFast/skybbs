@@ -43,4 +43,16 @@
     values (#{typeId},#{themeId},#{title},#{author},#{postTime},#{hotNumber},#{createBy},#{updateBy},#{updateDate},#{repeatNumber},#{attach})
   
   </insert>
+  
+  <update id="updateName">
+  UPDATE t_t_post_title SET author=#{name} where create_by=#{uid}
+  </update>
+  
+  <select id="getAdminTitleData" resultMap="BaseResultMap">
+  select * from t_t_post_title where 1=1
+  <if test="search != null and search !=''">
+  		and title like CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+  </if>
+  order by update_date desc
+  </select>
 </mapper>

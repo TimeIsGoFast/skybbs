@@ -40,4 +40,12 @@
   <select id="selectByPostId" resultMap="BaseResultMap">
   select * from t_t_post_detail where post_id=#{postId}
   </select>
+  
+  <update id="updateName">
+  update t_t_post_detail SET create_name=#{name} where create_by=#{uid}
+  </update>
+  
+  <delete id="deleteBytitleId">
+  delete from t_t_post_detail where post_id=#{titleId}
+  </delete>
 </mapper>

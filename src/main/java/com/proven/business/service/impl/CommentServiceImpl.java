@@ -21,6 +21,8 @@ import com.proven.business.dao.CommentMapper;
 import com.proven.business.dao.ReplyMapper;
 import com.proven.business.dtos.CommentDto;
 import com.proven.business.model.Comment;
+import com.proven.business.model.CommentVo;
+import com.proven.business.model.PostTitle;
 import com.proven.business.model.Reply;
 import com.proven.business.service.CommentService;
 
@@ -52,10 +54,10 @@ public class CommentServiceImpl extends BaseServiceImpl<Comment> implements Comm
 
 		//start page
 		PageHelper.startPage(page, row);
-		List<Comment> comments = commentMapper.getComments(titleId);
+		List<CommentVo> comments = commentMapper.getComments(titleId);
 		
 		//get comments id to get all of the reply bean
-		List<Integer> commentIds = comments.stream().map(Comment::getId).collect(Collectors.toList());
+		List<Integer> commentIds = comments.stream().map(CommentVo::getId).collect(Collectors.toList());
 		List<Reply> replys = new ArrayList<>();
 		if(!commentIds.isEmpty()){
 			replys = replyMapper.getReplysByCommentIds(commentIds);
@@ -63,7 +65,7 @@ public class CommentServiceImpl extends BaseServiceImpl<Comment> implements Comm
 		//List<Reply> replys = replyMapper.getReplysByCommentIds(commentIds);
 		List<CommentDto> commentDtos = new ArrayList<>();
 		//get commentsDaos that include comment and reply
-		for(Comment com : comments){			
+		for(CommentVo com : comments){			
 			CommentDto comDto = new CommentDto();
 			comDto.setComment(com);
 			List<Reply> res = replys.stream().filter(reply->reply.getCommentId().equals(com.getId())).collect(Collectors.toList());
@@ -75,6 +77,38 @@ public class CommentServiceImpl extends BaseServiceImpl<Comment> implements Comm
 		}
 		
 		PageInfo<CommentDto> info = new PageInfo<>(commentDtos);
+		return info;
+	}
+	/**
+	* <p>Title: updateName</p>  
+	* <p>Description: </p>   
+	*/  
+	@Override
+	public void updateName(String uid, String name) {
+		commentMapper.updateName(uid,name);
+		
+	}
+	/**
+	* <p>Title: deleteByTitleId</p>  
+	* <p>Description: </p>   
+	*/  
+	@Override
+	public void deleteByTitleId(int titleId) {
+		List<CommentVo> comments = commentMapper.getComments(titleId);
+		for (CommentVo commentVo : comments) {
+			replyMapper.deleteByCommentId(commentVo.getId());
+		}
+		commentMapper.deleteByTitleId(titleId);
+	}
+	/**
+	* <p>Title: getAdminCommentData</p>  
+	* <p>Description: </p>   
+	*/  
+	@Override
+	public PageInfo<PostTitle> getAdminCommentData(int page, int row, String search) {
+		PageHelper.startPage(page, row);
+		List<PostTitle> list = commentMapper.getAdminTitleData(search);
+		PageInfo<PostTitle> info = new PageInfo<>(list);
 		return info;
 	}
 

@@ -15,13 +15,13 @@
         
     </head>
     <body>
-     <form action="${pageContext.request.contextPath }/blog/savePostDetail.do" method="post"  enctype="multipart/form-data">
+     <form action="${pageContext.request.contextPath }/blog/savePostDetail.do" method="post"  enctype="multipart/form-data" onsubmit="return toVaild()">
         <div id="layout" style="width:90%;margin:10px auto;">
          
             <header>
                 <div class="input-group">
 					  <span class="input-group-addon" id="basic-addon1">标题</span>
-					  <input type="text" class="form-control" name="title" placeholder="不超过200字" aria-describedby="basic-addon1">
+					  <input type="text" class="form-control" name="title" placeholder="不超过200字" aria-describedby="basic-addon1" id="title">
 				</div>
 				<div class="row" style="margin-top:10px;">
 				  <div class="form-group col-md-8">
@@ -87,6 +87,15 @@
             	}
             }
         
+            //validate form before submit,add by weilong,20190628
+            function toVaild(){
+            	var title = $("#title").val();
+            	if(title=""||title.length==0){
+            		layer.alert('标题不能为空！', {icon: 6});
+            		return false;
+            	}
+            	return true;
+            }
         </script>
     </body>
 </html>

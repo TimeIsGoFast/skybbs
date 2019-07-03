@@ -1,8 +1,6 @@
 @charset "UTF-8";
 body{
-    background: url("../images/people.jpg") repeat;
-    background-size:100% 100%;
-    background-attachment: fixed;
+  background-color: #eeeeee;
 
 }
 input{
@@ -16,7 +14,8 @@ input{
 
 }
 .content{
-    width: 70%;
+    width: 50%;
+    margin:100px auto;
 
 }
 .content .input{

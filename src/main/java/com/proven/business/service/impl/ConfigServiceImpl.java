@@ -36,7 +36,7 @@ public class ConfigServiceImpl extends BaseServiceImpl<Config> implements Config
 	* @see com.proven.business.service.ConfigService#getConfigListByTypeId(int)  
 	*/  
 	@Override
-	public List<Config> getConfigListByTypeId(int groupId) {
+	public List<Config> getConfigListByGroupId(int groupId) {
 		return configMapper.getConfigListByTypeId(groupId);
 	}
 
