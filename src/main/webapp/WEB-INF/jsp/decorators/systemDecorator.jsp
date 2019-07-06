@@ -61,9 +61,9 @@
 					<li>
                         <a id="_index" href="${pageContext.request.contextPath}/admin/render.do" id="dashboard"><i class="fa fa-dashboard"></i>主页</a>
                     </li>
-                   <%--  <li>
-                        <a href="${pageContext.request.contextPath}/admin/user.do" id="userManage"><i class="fa fa-users"></i>用户管理</a>
-                    </li> --%>
+                    <li>
+                        <a href="${pageContext.request.contextPath}/admin/user.do" id="userInfo"><i class="fa fa-users"></i>用户管理</a>
+                    </li>
                      <li>
                         <a href="${pageContext.request.contextPath}/admin/post.do" id="sessionInfo"><i class="fa fa-book"></i>帖子管理</a>
                     </li>

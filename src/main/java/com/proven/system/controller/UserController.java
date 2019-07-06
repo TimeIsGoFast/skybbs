@@ -8,11 +8,20 @@
  */
 package com.proven.system.controller;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.Random;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,11 +92,21 @@ public class UserController extends BaseController<User>{
      */
 	@RequestMapping("/register")
 	@ResponseBody
-	public Result register(UserParam param){
+	public Result register(UserParam param,String verifyCode,HttpSession session){
 		Result result = new Result("success",true);
 		logger.info("uid="+param.getUid()+"email="+param.getEmail()+" ,fullname"+param.getNickName()+" ,telephone"+param.getTel()+" ,password"+param.getPassword());
 		//judge user if exist in database
 		User dbuser = userService.getUserByUid(param.getUid());
+		
+		String code  = session.getAttribute("strCode").toString();
+		logger.info("code in behind is "+code+", code in front is "+ verifyCode);
+		if(!verifyCode.equals(code)){
+			result.setMsg("验证码不正确！");
+			result.setSuccess(false);
+			result.setErrorCode(200);
+			return result;
+		}
+		
 		if(dbuser==null){
 			try {
 				//register
@@ -101,6 +120,7 @@ public class UserController extends BaseController<User>{
 				user.setTel(param.getTel());
 				user.setUid(param.getUid());
 				user.setLogoUrl(PropertyUtil.getProperty("default.logo"));
+				user.setRemark("user");
 				//save user to user table
 				userService.save(user);
 				//save user_role map to user_role map,this is for permission,if did not do this operate, user will can't access any url
@@ -415,4 +435,73 @@ public class UserController extends BaseController<User>{
 		
 		return result;
 	}
+	
+	@RequestMapping("/authCode")
+	public void getAuthCode(HttpServletRequest request, HttpServletResponse response,HttpSession session)
+            throws IOException {
+        int width = 63;
+        int height = 37;
+        Random random = new Random();
+        //设置response头信息
+        //禁止缓存
+        response.setHeader("Pragma", "No-cache");
+        response.setHeader("Cache-Control", "no-cache");
+        response.setDateHeader("Expires", 0);
+ 
+        //生成缓冲区image类
+        BufferedImage image = new BufferedImage(width, height, 1);
+        //产生image类的Graphics用于绘制操作
+        Graphics g = image.getGraphics();
+        //Graphics类的样式
+        g.setColor(this.getRandColor(200, 250));
+        g.setFont(new Font("Times New Roman",0,28));
+        g.fillRect(0, 0, width, height);
+        //绘制干扰线
+        for(int i=0;i<40;i++){
+            g.setColor(this.getRandColor(130, 200));
+            int x = random.nextInt(width);
+            int y = random.nextInt(height);
+            int x1 = random.nextInt(12);
+            int y1 = random.nextInt(12);
+            g.drawLine(x, y, x + x1, y + y1);
+        }
+ 
+        //绘制字符
+        String strCode = "";
+        for(int i=0;i<4;i++){
+            String rand = String.valueOf(random.nextInt(10));
+            strCode = strCode + rand;
+            g.setColor(new Color(20+random.nextInt(110),20+random.nextInt(110),20+random.nextInt(110)));
+            g.drawString(rand, 13*i+6, 28);
+        }
+        //将字符保存到session中用于前端的验证
+        session.setAttribute("strCode", strCode);
+        g.dispose();
+ 
+        ImageIO.write(image, "JPEG", response.getOutputStream());
+        response.getOutputStream().flush();
+ 
+    }
+	
+	/**
+	 * 
+	 *@Description:
+	 *-----------------------------------------------------
+	 *Author			date				comments
+	 *Zeng,Weilong		2019年7月4日			get color
+	 *-----------------------------------------------------
+	 * @return Color
+	 */
+	private  Color getRandColor(int fc,int bc){
+        Random random = new Random();
+        if(fc>255)
+            fc = 255;
+        if(bc>255)
+            bc = 255;
+        int r = fc + random.nextInt(bc - fc);
+        int g = fc + random.nextInt(bc - fc);
+        int b = fc + random.nextInt(bc - fc);
+        return new Color(r,g,b);
+    }
+
 }

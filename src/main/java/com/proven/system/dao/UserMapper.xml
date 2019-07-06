@@ -37,4 +37,12 @@
   <insert id="saveUserRoleMap">
   insert into t_s_user_role(user_id,role_id) values(#{userId},#{roleId})
   </insert>
+  
+  <select id="getUserData" resultMap="BaseResultMap">
+  select * from t_s_user where 1=1
+  <if test="search != null and search !=''">
+  		and name like CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+  </if>
+  order by create_date desc
+  </select>
 </mapper>

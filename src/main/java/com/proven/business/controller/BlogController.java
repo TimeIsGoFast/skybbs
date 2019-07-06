@@ -21,9 +21,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.proven.base.vo.FileVo;
+import com.proven.base.vo.ImgResult;
 import com.proven.business.model.Config;
 import com.proven.business.model.PostDetail;
 import com.proven.business.model.PostTitle;
@@ -35,6 +37,7 @@ import com.proven.business.service.ThemeService;
 import com.proven.parambean.PostParam;
 import com.proven.system.model.User;
 import com.proven.utils.DateFormatUtil;
+import com.proven.utils.FileUtils;
 import com.proven.utils.PropertyUtil;
 import com.proven.utils.SpringUtil;
 
@@ -203,6 +206,33 @@ public class BlogController {
 		return new FileVo(originFileName,filePath);
 	}
 	
+	/**
+	 * 
+	 *@Description:
+	 *-----------------------------------------------------
+	 *Author			date				comments
+	 *Zeng,Weilong		2019年7月6日			article picture upload
+	 *-----------------------------------------------------
+	 * @return ImgResult
+	 */
+	@RequestMapping("imgUpload")
+	@ResponseBody
+	public ImgResult imgUpload(@RequestParam(value = "editormd-image-file", required = false) MultipartFile file){
+		ImgResult result = new ImgResult(1);
+		try {
+			String path  =PropertyUtil.getProperty("upload.image.path")+"article"+File.separator;
+			FileVo fileVo = FileUtils.uploadFile(file, path);
+			String url = PropertyUtil.getProperty("app.image.url")+"/"+"article"+fileVo.getFilePath();
+			logger.info("upload image url is "+ url);
+			result.setUrl(url);
+			result.setMessage("success");
+		} catch (Exception e) {
+			 result .setSuccess(0);
+			 result.setMessage("faild");
+		}
+		
+		return result;
+	}
 	
 	
 	

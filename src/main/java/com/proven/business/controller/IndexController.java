@@ -23,11 +23,13 @@ import com.github.pagehelper.PageInfo;
 import com.proven.base.vo.Result;
 import com.proven.business.dtos.CommentDto;
 import com.proven.business.model.Comment;
+import com.proven.business.model.Config;
 import com.proven.business.model.PostDetail;
 import com.proven.business.model.PostTitle;
 import com.proven.business.model.Reply;
 import com.proven.business.model.Theme;
 import com.proven.business.service.CommentService;
+import com.proven.business.service.ConfigService;
 import com.proven.business.service.PostDetailService;
 import com.proven.business.service.PostTitleService;
 import com.proven.business.service.ReplyService;
@@ -67,6 +69,9 @@ public class IndexController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private ConfigService  configService;
 	
 	@RequestMapping("/getThemeData")
 	public List<Theme> getThemeData(){
@@ -344,9 +349,19 @@ public class IndexController {
 		return "message";
 	}
 	
-	
+	/**
+	 * 
+	 *@Description:
+	 *-----------------------------------------------------
+	 *Author			date				comments
+	 *Zeng,Weilong		2019年7月6日			link admin page
+	 *-----------------------------------------------------
+	 * @return String
+	 */
 	@RequestMapping("/linkAdmin")
-	public String linkAdmin(){
+	public String linkAdmin(Model model){
+		List<Config> configs = configService.getConfigListByGroupId(2);
+		model.addAttribute("configs", configs);
 		return "user/linkAdmin";
 	}
 	

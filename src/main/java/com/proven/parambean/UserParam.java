@@ -24,6 +24,7 @@ public class UserParam {
 	private String birth;
 	private String company;
 	private String name;
+
 	
 	
 	public String getUid() {
