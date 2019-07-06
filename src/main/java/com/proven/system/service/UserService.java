@@ -8,6 +8,7 @@
  */
 package com.proven.system.service;
 
+import com.github.pagehelper.PageInfo;
 import com.proven.base.service.BaseService;
 import com.proven.system.model.User;
 
@@ -27,5 +28,15 @@ public interface UserService extends BaseService<User>{
 	User getUserByUid(String uid);
 
 	void saveUserRoleMap(Integer id, int roleId);
+
+	/**  
+	 *@Description:
+	 *-----------------------------------------------------
+	 *Author			date				comments
+	 *Zeng,Weilong		2019年7月6日				init method
+	 *-----------------------------------------------------
+	 * @return String 
+	 */
+	PageInfo<User> getUserData(int page, int row, String search);
 
 }

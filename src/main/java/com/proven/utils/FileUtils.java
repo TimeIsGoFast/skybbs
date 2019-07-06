@@ -93,7 +93,7 @@ public class FileUtils {
 			filePath = filePath+File.separator+newFileName;
 			File newFile  = new File(filePath);
 			logger.info("uploadFile method,the file path for save is "+filePath);
-			relPath =File.separator+dateStr+File.separator+newFileName;
+			relPath ="/"+dateStr+"/"+newFileName;
 			try {
 				imgfile.transferTo(newFile);
 			} catch (IllegalStateException e) {

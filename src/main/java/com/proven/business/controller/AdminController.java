@@ -26,6 +26,8 @@ import com.proven.business.service.PostDetailService;
 import com.proven.business.service.PostTitleService;
 import com.proven.business.service.ReplyService;
 import com.proven.business.service.ThemeService;
+import com.proven.system.model.User;
+import com.proven.system.service.UserService;
 
 /**  
 * @ClassName: AdminController  
@@ -54,6 +56,9 @@ public class AdminController {
 	
 	@Autowired
 	private ConfigService configService;
+	
+	@Autowired
+	private UserService userService;
 	/**
 	 * 
 	 *@Description:
@@ -79,8 +84,25 @@ public class AdminController {
 	 */
 	@RequestMapping("/user")
 	public String user(){
-		return null;
+		return "admin/user/user";
 	}
+	
+	
+	/**
+	 * 
+	 *@Description:
+	 *-----------------------------------------------------
+	 *Author			date				comments
+	 *Zeng,Weilong		2019年7月6日			getUserPage
+	 *-----------------------------------------------------
+	 * @return PageInfo<User>
+	 */
+	@RequestMapping("/getUserPage")
+	@ResponseBody
+	public PageInfo<User> getUserPage(int page,int row,String search){
+		return userService.getUserData(page, row,search);
+	}
+	
 	
 	/**
 	 * 

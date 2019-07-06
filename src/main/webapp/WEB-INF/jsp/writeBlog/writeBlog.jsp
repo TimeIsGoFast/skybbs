@@ -19,14 +19,16 @@
         <div id="layout" style="width:90%;margin:10px auto;">
          
             <header>
-                <div class="input-group">
-					  <span class="input-group-addon" id="basic-addon1">标题</span>
-					  <input type="text" class="form-control" name="title" placeholder="不超过200字" aria-describedby="basic-addon1" id="title">
-				</div>
+               
 				<div class="row" style="margin-top:10px;">
-				  <div class="form-group col-md-8">
+				<h2>&nbsp;&nbsp;添加文章</h2>
+				<div class="col-md-9" style="margin-bottom:10px;">
+				<input type="text" class="form-control" name="title" placeholder="请输入标题，不超过100字" aria-describedby="basic-addon1" id="title">
+				</div>
+				<br/>
+			    <div class="form-group col-md-4">
 				    <input type="file" id="attachFile" onchange="chekFileSize()" name="attachFile">
-				    <p class="help-block">选择你要提交的附件！</p>
+				    <p class="help-block">选择你要提交的附件,不大于20M!</p>
 				 </div>
 				 <div class="row col-md-3">
 				     <div class="col-md-3">
@@ -41,8 +43,8 @@
 						</select>
 					</div>
 				 </div>
-				  <div class="col-md-1">
-				  	<input type="submit" id="" class="btn btn-danger"/>
+				  <div class="col-md-2">
+				  	<input type="submit" id="" class="btn btn-danger" value="  提交文章    "/>
 				  </div>
 				 </div> 
             </header>
@@ -60,19 +62,30 @@
 			var testEditor;
 			var path = '${pageContext.request.contextPath}';
 
-            $(function() {
-                testEditor = editormd("test-editormd", {
-                    width   : "90%",
-                    height  : 640,
-                    syncScrolling : "single",
-                    path    : path+"/static/markdown/lib/"
+            $(function() {                
+                var testEditor = editormd("test-editormd", {
+                    width: "90%",
+                    height: 640,
+                    markdown : "",
+                    path :path+"/static/markdown/lib/",
+                    //dialogLockScreen : false,   // 设置弹出层对话框不锁屏，全局通用，默认为 true
+                    //dialogShowMask : false,     // 设置弹出层对话框显示透明遮罩层，全局通用，默认为 true
+                    //dialogDraggable : false,    // 设置弹出层对话框不可拖动，全局通用，默认为 true
+                    //dialogMaskOpacity : 0.4,    // 设置透明遮罩层的透明度，全局通用，默认值为 0.1
+                    //dialogMaskBgColor : "#000", // 设置透明遮罩层的背景颜色，全局通用，默认为 #fff
+                    imageUpload : true,
+                    imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                    imageUploadURL : path+"/blog/imgUpload.do",
+                    
+                    /*
+                     上传的后台只需要返回一个 JSON 数据，结构如下：
+                     {
+                        success : 0 | 1,           // 0 表示上传失败，1 表示上传成功
+                        message : "提示的信息，上传成功或上传失败及错误信息等。",
+                        url     : "图片地址"        // 上传成功时才返回
+                     }
+                     */
                 });
-                
-              
-               /*  $("#attachFile").on('change', function() {
-                	
-           			
-                }); */
             });
             //file size validate,add by weilong 2019-06-25
             function chekFileSize(){

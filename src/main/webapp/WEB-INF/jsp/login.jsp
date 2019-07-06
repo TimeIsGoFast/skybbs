@@ -57,12 +57,18 @@
          <div class="div1">
             <input type="text" name="tel"  id="_tel" placeholder="手机号" >
         </div>
-        <div class="div2">
+        <div class="div1">
             <input type="password" name="password" id="_password" placeholder="密码(密码不小于6位)" >
         </div>
+        <div class="div2">
+            <input type="text" name="verifyCode" id="yzmCode" placeholder="验证码" >
+            <img type="image" src="${pageContext.request.contextPath}/user/authCode.do" id="codeImage" onclick="chageCode()" />
+        </div>
+        </form> 
+        
 
 
-    </form>
+   
     <input type="button" value="注册skybbs" class="submit1" onclick="register_button()">
 </div>
 
@@ -141,6 +147,8 @@
 		var accountReg = /^[0-9A-Za-z]{5,}$/;
 		var mailReg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$");
 		var telReg=/^[1][3,4,5,7,8][0-9]{9}$/;
+		var yzmCode = $("#yzmCode").val();
+		
 		if(!accountReg.test(uid)){
 			$(".error_message").text("账号不能小于5位，不能有特殊字符！");
 			return;
@@ -155,6 +163,11 @@
 		}
 		if(!telReg.test(tel)){
 			$(".error_message").text("手机号码格式不正确！");
+			return;
+		}
+		
+		if(yzmCode.length<=0){
+			$(".error_message").text("验证码不能为空");
 			return;
 		}
 		
@@ -184,6 +197,9 @@
 		
 	}
 
+	function chageCode(){
+        $('#codeImage').attr('src','${pageContext.request.contextPath}/user/authCode.do?abc='+Math.random());//链接后添加Math.random，确保每次产生新的验证码，避免缓存问题。
+    }
 	
 
 </script>

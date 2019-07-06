@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -29,8 +30,10 @@ body{
   <div class="panel-default">
    <h2>欢迎来到skybbs!</h2>
    <p>如果你有什么建议或者有任何疑问，你可以通过以下方式来联系管理员，以下是联系方式：</p>
-   <p>邮箱：1501122784@qq.com</p>
-   <p>qq群：1501122784</p>
+   <c:forEach items="${configs}" var="Config">
+   <p>${Config.itemValue}：${Config.desc}</p>
+   </c:forEach>
+ 
    </div>
 </div>
 
