@@ -23,7 +23,7 @@ import com.proven.business.service.ConfigService;
 * @date 2019年6月15日    
 */
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class ConfigServiceImpl extends BaseServiceImpl<Config> implements ConfigService{
 	
 	@Autowired

@@ -43,7 +43,7 @@
 				 
 				 <div class="row bolg_detail">
 				 	<div class="col-md-2 left_top">
-				 		<p>查看： <span>${postDetail.watchNumber}</span> | 回复: <span>${postDetail.repeatNum}</span></p>
+				 		<p>查看： <span>${postDetail.watchNumber}</span> | 评论: <span>${postDetail.repeatNum}</span></p>
 				 		<div class="username">
 				 			<p style="text-align:center;">${postTitle.author}</p>
 				 		</div>

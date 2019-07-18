@@ -23,7 +23,7 @@ import com.proven.business.service.ThemeService;
 * @date 2019年6月13日    
 */
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class ThemeServiceImpl extends BaseServiceImpl<Theme> implements ThemeService{
 	@Autowired
 	private ThemeMapper themeMapper;

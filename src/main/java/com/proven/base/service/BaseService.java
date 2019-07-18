@@ -22,7 +22,15 @@ import java.util.List;
 *
 */
 public interface BaseService<T> {
-	//select T by key
+	/**
+	 * select T by key
+	 *@Description:
+	 *-----------------------------------------------------
+	 *Author			date				comments
+	 *Zeng,Weilong		2019年7月18日				init method
+	 *-----------------------------------------------------
+	 * @return T
+	 */
 	T selectByKey(Object key);
     List<T>  selectAll();
 	int save(T entity);

@@ -3,7 +3,12 @@ package com.proven.business.model;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
-
+/**
+ * 
+* @ClassName: Theme  
+* @author Administrator  
+* @date 2019年7月18日
+ */
 @Table(name = "t_t_theme")
 public class Theme implements Serializable {
     @Id

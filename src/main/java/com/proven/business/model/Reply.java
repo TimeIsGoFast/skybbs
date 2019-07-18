@@ -4,6 +4,12 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 
+/**
+ * 
+* @ClassName: Reply  
+* @author Administrator  
+* @date 2019年7月18日
+ */
 @Table(name = "t_t_reply")
 public class Reply implements Serializable {
     @Id

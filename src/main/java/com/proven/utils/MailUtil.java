@@ -31,13 +31,10 @@ public class MailUtil {
 		// 使用javaMail发送邮件的5个步骤
 		// 创建session
 		Session session = Session.getInstance(prop);
-		// 开启session的debug模式，这样就可以查看到成语发送Email的运行状态（测试人员用）session.setDebug(true);
-		// 2.通过session得到transport对象
+		// 开启session的debug模式，这样就可以查看到成语发送Email的运行状态（测试人员用）
 		Transport ts = session.getTransport();
 		// 3.使用邮箱的用户名和密码链接上邮件服务器，发送邮件时，发送人需要提交邮箱的用户名和密码（授权码）给smtp服务器，用户名和密码都通过验证之后
 		// 才能够正常发送邮件给收件人，QQ邮箱需要使用SSL，端口号465或587      
-		// ts.connect("smtp.qq.com",587,"QQ号","授权码"); 
-		//wplkfgfgcgohbacf 
 		ts.connect("smtp.qq.com", 587, connent[2], connent[3]);
 		// 4、创建邮件  
 		Message message;

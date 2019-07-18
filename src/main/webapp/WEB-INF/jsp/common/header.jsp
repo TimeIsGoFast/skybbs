@@ -17,7 +17,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="active"><a href="#">首页 <span class="sr-only">(current)</span></a></li>
-        <li><a href="${pageContext.request.contextPath }/index/chat.do" target="_blank">聊天机器人</a></li>
+       <%--  <li><a href="${pageContext.request.contextPath }/index/chat.do" target="_blank">聊天机器人</a></li> --%>
 
       </ul>
 <!--       <form class="navbar-form navbar-left">

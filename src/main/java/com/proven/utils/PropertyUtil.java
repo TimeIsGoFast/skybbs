@@ -7,7 +7,12 @@ import java.util.Properties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+/**
+ * 
+* @ClassName: PropertyUtil  
+* @author Administrator  
+* @date 2019年7月18日
+ */
 public class PropertyUtil {
     private static final Logger logger = LoggerFactory.getLogger(PropertyUtil.class);
     private static Properties props;

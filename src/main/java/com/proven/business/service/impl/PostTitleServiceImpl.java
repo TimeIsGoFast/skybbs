@@ -20,6 +20,7 @@ import com.proven.base.service.impl.BaseServiceImpl;
 import com.proven.business.dao.PostTitleMapper;
 import com.proven.business.model.PostTitle;
 import com.proven.business.service.PostTitleService;
+import com.proven.constans.Constans;
 
 /**  
 * @ClassName: PostTitleServiceImpl  
@@ -27,7 +28,7 @@ import com.proven.business.service.PostTitleService;
 * @date 2019年6月15日    
 */
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class PostTitleServiceImpl extends BaseServiceImpl<PostTitle> implements PostTitleService {
 	private static final Logger logger  = Logger.getLogger(PostTitleServiceImpl.class);
 	@Autowired
@@ -43,7 +44,7 @@ public class PostTitleServiceImpl extends BaseServiceImpl<PostTitle> implements 
 	@Override
 	public PageInfo<PostTitle> getPostTitleData(String typeId, String themeId,int page,int row) {
 		//judge whether type id is empty
-		if(StringUtils.isEmpty(typeId)){
+		if(StringUtils.isEmpty(typeId)||Constans.STR_1.equals(typeId)){
 			typeId="0";
 		}
 		//judge whether theme id is empty

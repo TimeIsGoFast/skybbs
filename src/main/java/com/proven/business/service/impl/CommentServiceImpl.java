@@ -32,7 +32,7 @@ import com.proven.business.service.CommentService;
 * @date 2019年6月19日    
 */
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class CommentServiceImpl extends BaseServiceImpl<Comment> implements CommentService{
 
 	@Autowired

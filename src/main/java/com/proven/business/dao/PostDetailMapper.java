@@ -5,7 +5,12 @@ import org.apache.ibatis.annotations.Param;
 import com.proven.business.model.PostDetail;
 
 import tk.mybatis.mapper.common.Mapper;
-
+/**
+ * 
+* @ClassName: PostDetailMapper  
+* @author Administrator  
+* @date 2019年7月18日
+ */
 public interface PostDetailMapper extends Mapper<PostDetail> {
 
 	/**  

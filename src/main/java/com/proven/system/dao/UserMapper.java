@@ -6,7 +6,12 @@ import org.apache.ibatis.annotations.Param;
 
 import com.proven.system.model.User;
 import tk.mybatis.mapper.common.Mapper;
-
+/**
+ * 
+* @ClassName: UserMapper  
+* @author Administrator  
+* @date 2019年7月18日
+ */
 public interface UserMapper extends Mapper<User> {
 
 	/**   

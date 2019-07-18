@@ -21,7 +21,7 @@ import com.proven.business.service.PostDetailService;
 * @date 2019年6月16日    
 */
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class PostDetailServiceImpl extends BaseServiceImpl<PostDetail> implements PostDetailService{
 
 	@Autowired

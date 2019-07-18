@@ -86,7 +86,7 @@ public class SystemController {
 		
 		User user = userService.getUserByUid(token.getUsername());
 		
-		if("N".equalsIgnoreCase(user.getEnabled())){
+		if(Constans.N.equalsIgnoreCase(user.getEnabled())){
 			result.setSuccess(false);
 			result.setMsg("该账号还没激活");
 		}

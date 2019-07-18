@@ -3,7 +3,12 @@ package com.proven.system.model;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
-
+/**
+ * 
+* @ClassName: Resource  
+* @author Administrator  
+* @date 2019年7月18日
+ */
 @Table(name = "t_s_resource")
 public class Resource implements Serializable {
     @Id

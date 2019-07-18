@@ -34,6 +34,7 @@ import com.proven.business.service.ConfigService;
 import com.proven.business.service.PostDetailService;
 import com.proven.business.service.PostTitleService;
 import com.proven.business.service.ThemeService;
+import com.proven.constans.Constans;
 import com.proven.parambean.PostParam;
 import com.proven.system.model.User;
 import com.proven.utils.DateFormatUtil;
@@ -148,7 +149,7 @@ public class BlogController {
 		postTitle.setPostTime(new Date());
 		postTitle.setThemeId(Integer.parseInt(param.getThemeId()));
 		postTitle.setTitle(param.getTitle());
-		if("admin".equals(user.getRemark())){
+		if(Constans.ADMIN.equals(user.getRemark())){
 			postTitle.setTypeId(2);
 		}else{
 			postTitle.setTypeId(1);

@@ -21,7 +21,7 @@ import com.proven.business.service.ReplyService;
 * @date 2019年6月21日    
 */
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class ReplyServiceImpl extends BaseServiceImpl<Reply> implements ReplyService{
 	
 	@Autowired

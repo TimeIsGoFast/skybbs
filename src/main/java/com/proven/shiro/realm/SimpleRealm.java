@@ -36,11 +36,10 @@ public class SimpleRealm extends AuthorizingRealm {
 	private ResourceMapper resourceMapper;
 
 	
-/*	 * (non-Javadoc)
+	/**
 	 * 
-	 * @see
-	 * org.apache.shiro.realm.AuthorizingRealm#doGetAuthorizationInfo(org.apache
-	 * .shiro.subject.PrincipalCollection)
+	* <p>Title: doGetAuthorizationInfo</p>  
+	* <p>Description: </p>
 	 */
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(
@@ -55,8 +54,10 @@ public class SimpleRealm extends AuthorizingRealm {
 			List<Resource> resources = resourceMapper.getResourcesByRoleId(role
 					.getId());
 			for (Resource resource : resources) {
-				if(resource.getValue()!=null&&!resource.getValue().equals(""))
-				info.addStringPermission(resource.getValue());
+				if(resource.getValue()!=null&&!resource.getValue().equals("")){
+					info.addStringPermission(resource.getValue());
+				}
+				
 			}
 		}
 		return info;
@@ -64,11 +65,10 @@ public class SimpleRealm extends AuthorizingRealm {
 	}
 
 	
-/*	 * (non-Javadoc)
+	/**
 	 * 
-	 * @see
-	 * org.apache.shiro.realm.AuthenticatingRealm#doGetAuthenticationInfo(org
-	 * .apache.shiro.authc.AuthenticationToken)
+	* <p>Title: doGetAuthenticationInfo</p>  
+	* <p>Description: </p>
 	 */
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(

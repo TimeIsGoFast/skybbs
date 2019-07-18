@@ -25,23 +25,31 @@ public class ExcelCellStyle {
 		
 		XSSFCellStyle style = wb.createCellStyle();
 		//设置边框
-		style.setBorderBottom(BorderStyle.THIN); //下边框
-		style.setBorderLeft(BorderStyle.THIN);//左边框
-		style.setBorderTop(BorderStyle.THIN);//上边框
-		style.setBorderRight(BorderStyle.THIN);//右边框
+		style.setBorderBottom(BorderStyle.THIN); 
+		style.setBorderLeft(BorderStyle.THIN);
+		style.setBorderTop(BorderStyle.THIN);
+		style.setBorderRight(BorderStyle.THIN);
 		
 		return style;
 		
 	}
 	
-	//date format style
+	/**
+	 * date format style
+	 *@Description:
+	 *-----------------------------------------------------
+	 *Author			date				comments
+	 *Zeng,Weilong		2019年7月18日				init method
+	 *-----------------------------------------------------
+	 * @return XSSFCellStyle
+	 */
 	public static XSSFCellStyle getDateFormatCellStyle(XSSFWorkbook wb){
 		XSSFCellStyle style = wb.createCellStyle();
 		//设置边框
-		style.setBorderBottom(BorderStyle.THIN); //下边框
-		style.setBorderLeft(BorderStyle.THIN);//左边框
-		style.setBorderTop(BorderStyle.THIN);//上边框
-		style.setBorderRight(BorderStyle.THIN);//右边框
+		style.setBorderBottom(BorderStyle.THIN);
+		style.setBorderLeft(BorderStyle.THIN);
+		style.setBorderTop(BorderStyle.THIN);
+		style.setBorderRight(BorderStyle.THIN);
 		
         XSSFDataFormat format= wb.createDataFormat();
         style.setDataFormat(format.getFormat("yyyy年m月d日"));

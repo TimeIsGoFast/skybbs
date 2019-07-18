@@ -9,7 +9,12 @@ import com.proven.business.model.CommentVo;
 import com.proven.business.model.PostTitle;
 
 import tk.mybatis.mapper.common.Mapper;
-
+/**
+ * 
+* @ClassName: CommentMapper  
+* @author Administrator  
+* @date 2019年7月18日
+ */
 public interface CommentMapper extends Mapper<Comment> {
 
 	/**  
