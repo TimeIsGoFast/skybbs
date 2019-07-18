@@ -7,7 +7,12 @@ import org.apache.ibatis.annotations.Param;
 import com.proven.business.model.Reply;
 
 import tk.mybatis.mapper.common.Mapper;
-
+/**
+ * 
+* @ClassName: ReplyMapper  
+* @author Administrator  
+* @date 2019年7月18日
+ */
 public interface ReplyMapper extends Mapper<Reply> {
 
 	/**  

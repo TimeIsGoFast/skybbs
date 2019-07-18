@@ -7,7 +7,12 @@ import org.apache.ibatis.annotations.Param;
 import com.proven.business.model.PostTitle;
 
 import tk.mybatis.mapper.common.Mapper;
-
+/**
+ * 
+* @ClassName: PostTitleMapper  
+* @author Administrator  
+* @date 2019年7月18日
+ */
 public interface PostTitleMapper extends Mapper<PostTitle> {
 
 	/**  

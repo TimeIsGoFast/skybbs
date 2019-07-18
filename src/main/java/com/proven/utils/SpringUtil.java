@@ -11,7 +11,12 @@ import com.proven.system.model.User;
 
 
 
-
+/**
+ * 
+* @ClassName: SpringUtil  
+* @author Administrator  
+* @date 2019年7月18日
+ */
 public class SpringUtil implements ApplicationContextAware {
 	/**
 	 * 当前IOC
@@ -21,7 +26,7 @@ public class SpringUtil implements ApplicationContextAware {
 	/**
 	 * 设置当前上下文环境，此方法由spring自动装配
 	 */
-
+	@Override
 	public void setApplicationContext(ApplicationContext arg0) {
 		applicationContext = arg0;
 	}

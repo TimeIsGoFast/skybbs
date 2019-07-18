@@ -11,7 +11,12 @@ import org.springframework.util.StringUtils;
 import com.proven.constans.Constans;
 
 
-
+/**
+ * 
+* @ClassName: DateFormatUtil  
+* @author Administrator  
+* @date 2019年7月18日
+ */
 public class DateFormatUtil {
 	public static final long HOUR = 3600*1000;
 	public static final long DAY = 3600*1000*24;
@@ -111,14 +116,30 @@ public class DateFormatUtil {
          return format.format(d);
 	      
 	}
-	//将string date 转换成Date date
+	/**
+	 * 将string date 转换成Date date
+	 *@Description:
+	 *-----------------------------------------------------
+	 *Author			date				comments
+	 *Zeng,Weilong		2019年7月18日				init method
+	 *-----------------------------------------------------
+	 * @return Date
+	 */
 	public static Date parseDate(String date) throws ParseException {
 		SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
 		return format.parse(date);
 	}
 	
 
-	//通过date 判断是否为当前日期
+	/**
+	 * 通过date 判断是否为当前日期
+	 *@Description:
+	 *-----------------------------------------------------
+	 *Author			date				comments
+	 *Zeng,Weilong		2019年7月18日				init method
+	 *-----------------------------------------------------
+	 * @return boolean
+	 */
 	public static boolean isCurrentDay(String date) {
 		SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
 		Date date2 = new Date();
@@ -128,7 +149,15 @@ public class DateFormatUtil {
 		}
 		return false;
 	}
-	//计算所用的时间 分钟
+	/**
+	 * 计算所用的时间 分钟
+	 *@Description:
+	 *-----------------------------------------------------
+	 *Author			date				comments
+	 *Zeng,Weilong		2019年7月18日				init method
+	 *-----------------------------------------------------
+	 * @return Integer
+	 */
 	public static Integer calculatorTime(String timeDiff) {
 		Integer time = 0;
 		//TODO 这里有一个bug,当timeDiff 为null 的时候不应该设置24小时

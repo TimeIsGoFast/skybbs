@@ -34,6 +34,7 @@ import com.proven.business.service.PostDetailService;
 import com.proven.business.service.PostTitleService;
 import com.proven.business.service.ReplyService;
 import com.proven.business.service.ThemeService;
+import com.proven.constans.Constans;
 import com.proven.parambean.CommentParam;
 import com.proven.system.model.User;
 import com.proven.system.service.UserService;
@@ -194,6 +195,12 @@ public class IndexController {
 			comment.setLinkNum(0);
 			comment.setTreadNum(0);
 			commentService.save(comment);
+			
+			//add repeat number
+			PostDetail detail = postDetailService.selectByKey(param.getDetailId());
+			detail.setRepeatNum(detail.getRepeatNum()+1);
+			postDetailService.update(detail);
+			
 		} catch (Exception e) {
 			logger.error(e);
 			result.setMsg("failed");
@@ -310,9 +317,9 @@ public class IndexController {
 		
 		try {
 			Comment comment = commentService.selectByKey(commentId);
-			if("link".equals(type)){
+			if(Constans.LINK.equals(type)){
 				comment.setLinkNum(comment.getLinkNum()+1);
-			}else if("tread".equals(type)){
+			}else if(Constans.TREAD.equals(type)){
 				comment.setTreadNum(comment.getTreadNum()+1);
 			}else{
 				result.setMsg("failed");
@@ -340,9 +347,9 @@ public class IndexController {
 	@RequestMapping("/message")
 	public String message(String type,Model model){
 		String message = "";
-		if("access".equals(type)){
+		if(Constans.ACCESS.equals(type)){
 			message = PropertyUtil.getProperty("access.success");
-		}else if("register".equals(type)){
+		}else if(Constans.REGISTER.equals(type)){
 			message = PropertyUtil.getProperty("register.success");
 		}
 		model.addAttribute("message", message);

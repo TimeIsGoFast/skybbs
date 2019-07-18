@@ -33,7 +33,7 @@ import com.proven.system.service.UserService;
 *
 */
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class UserServiceImpl extends BaseServiceImpl<User> implements UserService{
 	@Autowired
 	private UserMapper userMapper;

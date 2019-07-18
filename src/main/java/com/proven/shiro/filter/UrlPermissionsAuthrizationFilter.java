@@ -17,12 +17,10 @@ import org.springframework.util.StringUtils;
  */
 public class UrlPermissionsAuthrizationFilter extends AuthorizationFilter {
 
-	/*
-	 * (non-Javadoc)
+	/**
 	 * 
-	 * @see
-	 * org.apache.shiro.web.filter.AccessControlFilter#isAccessAllowed(javax
-	 * .servlet.ServletRequest, javax.servlet.ServletResponse, java.lang.Object)
+	* <p>Title: isAccessAllowed</p>  
+	* <p>Description: </p>
 	 */
 	@Override
 	protected boolean isAccessAllowed(ServletRequest request,

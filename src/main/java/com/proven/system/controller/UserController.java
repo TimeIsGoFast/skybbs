@@ -40,6 +40,7 @@ import com.proven.business.service.CommentService;
 import com.proven.business.service.PostDetailService;
 import com.proven.business.service.PostTitleService;
 import com.proven.business.service.ReplyService;
+import com.proven.constans.Constans;
 import com.proven.parambean.UserParam;
 import com.proven.system.model.User;
 import com.proven.system.service.UserService;
@@ -457,7 +458,7 @@ public class UserController extends BaseController<User>{
         g.setFont(new Font("Times New Roman",0,28));
         g.fillRect(0, 0, width, height);
         //绘制干扰线
-        for(int i=0;i<40;i++){
+        for(int i=0;i<Constans.FOURTY;i++){
             g.setColor(this.getRandColor(130, 200));
             int x = random.nextInt(width);
             int y = random.nextInt(height);
@@ -468,7 +469,7 @@ public class UserController extends BaseController<User>{
  
         //绘制字符
         String strCode = "";
-        for(int i=0;i<4;i++){
+        for(int i=0;i<Constans.FOUR;i++){
             String rand = String.valueOf(random.nextInt(10));
             strCode = strCode + rand;
             g.setColor(new Color(20+random.nextInt(110),20+random.nextInt(110),20+random.nextInt(110)));
@@ -494,10 +495,13 @@ public class UserController extends BaseController<User>{
 	 */
 	private  Color getRandColor(int fc,int bc){
         Random random = new Random();
-        if(fc>255)
-            fc = 255;
-        if(bc>255)
-            bc = 255;
+        if(fc>Constans.TWOFIVEFIVE){
+        	 fc = 255;
+        }
+        if(bc>Constans.TWOFIVEFIVE){
+        	bc = 255;
+        }
+            
         int r = fc + random.nextInt(bc - fc);
         int g = fc + random.nextInt(bc - fc);
         int b = fc + random.nextInt(bc - fc);
